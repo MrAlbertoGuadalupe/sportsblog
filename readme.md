@@ -9,8 +9,6 @@ Express or Ruby on Rails (Undecided)
 React/JSX
 React Native (undecided)
 
-## Views / Component Hierarchy
-
 ##Navbar
 Home
 
