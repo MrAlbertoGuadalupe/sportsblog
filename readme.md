@@ -1,6 +1,6 @@
 # sportsblog
 a sports blog site where sports articles are posted and users can leave comments on the articles
-![Models](ERD.jpg)
+![Models](ERD.jpeg)
 ![Wireframe](wireframe.png)
 ### Back-End Construction
 Ruby on Rails (Hope)  
