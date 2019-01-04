@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Post.destroy_all
 User.destroy_all
-Comment.destroy_all
+# Comment.destroy_all
  users = User.create([
   {
     email: 'a@a.co',
