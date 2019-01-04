@@ -1,7 +1,7 @@
 # sportsblog
 a sports blog site where sports articles are posted and users can leave comments on the articles
-![Models](models.HEIC)
-![Wireframe](wireframe.HEIC)
+![Models](models.png)
+![Wireframe](wireframe.png)
 ### Back-End Construction
 Express or Ruby on Rails (Undecided)
 
