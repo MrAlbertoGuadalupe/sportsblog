@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Post.destroy_all
 User.destroy_all
-# Comment.destroy_all
+Comment.destroy_all
+
  users = User.create([
   {
     email: 'a@a.co',
@@ -15,15 +16,30 @@ User.destroy_all
   }
 ])
 
- users.each do |user|
-  3.times do
-    user.posts.create(title: Faker::Company.buzzword, body: Faker::Company.bs)
-  end
-end
+posts = Post.create([
+ {
+   title: 'posttest',
+   body: 'heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey'
+ }
+])
+
+comments = Comment.create([
+ {
+   title: 'commenttest',
+   body: 'heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey'
+ }
+])
+
+#  users.each do |user|
+#   3.times do
+#     user.posts.create(title: Faker::Company.buzzword, body: Faker::Company.bs)
+#   end
+# end
 
 # comments.each do |comments|
 #  3.times do
 #    comments.posts.create(title: Faker::Company.buzzword, body: Faker::Company.bs)
 #  end
 # end
- puts "#{Post.count} posts and #{User.count} user and #{Comment.count} comments in database "
+ #puts "#{Post.count} posts and #{User.count} user  in database "
+# and #{Comment.count} comments
