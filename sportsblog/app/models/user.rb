@@ -1,9 +1,11 @@
 class User < ApplicationRecord
+  has_many :posts, dependent: :nullify
   has_secure_password
   validates :email, presence: true
-   def to_token_payload
+
+  def to_token_payload
       {
-          id: id,
+          sub: id,
           email: email
       }
   end
