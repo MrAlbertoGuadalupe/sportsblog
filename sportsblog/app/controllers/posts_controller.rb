@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
   before_action :authenticate_user, only: [:create, :update, :destroy, :mine]
+
   # GET /posts
   def index
     @posts = Post.all
@@ -15,7 +16,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -36,6 +37,13 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post.destroy
+  end
+
+  # GET /posts/mine
+  def mine
+    @posts = current_user.posts
+
+    render json: @posts
   end
 
   private
