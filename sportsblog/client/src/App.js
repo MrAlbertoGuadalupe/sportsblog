@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
+async function getPosts() {
+  const resp = await axios.get('/posts');
+  console.log(resp.data);
+}
+
+getPosts();
 class App extends Component {
   render() {
     return (
