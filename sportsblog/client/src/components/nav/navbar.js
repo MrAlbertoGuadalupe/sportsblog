@@ -1,37 +1,18 @@
-import React, { Component } from 'react';
-import LoginView from '../login/loginview.js';
+import React from 'react';
+import { Icon } from "antd";
 
-export default class Navbar extends Component {
-  constructor(props) {
-     super(props);
-     this.state = {
 
-     }
+export default function NavBar(props) {
+  return (
+    <header>
+    <Icon
+      type="user"
+      style={{ fontSize: "30px", color: "white" }}
 
-  }
+      onClick={() => props.handleViewChange('Login')}
+    />
+  
+    </header>
 
-  handleChange(selectedProfile) {
-    this.setState({
-      selectedProfile
-    });
-  }
-
-  render() {
-     return (
-
-      <div>
-
-             <button onClick={() => this.setView('aboutView')} className="navButton">About</button>
-             <button onClick={() => this.setView('rosterView')} className="navButton">Roster</button>
-             <button onClick={() => this.setView('statsView')} className="navButton">Stats</button>
-             {this.state.user ?
-            <button onClick={() => this.setView('profileView')} className="navButton">You are logged in</button> :
-            <button onClick={() => this.setView('loginView')} className="navButton">You are not logged in</button>
-           }
-         {this.state.user ? <button onClick={this.logout} className="navButton">Log off</button>
-         : null}
-         <LoginView />
-      </div>
-     )
-   }
+          )
 }

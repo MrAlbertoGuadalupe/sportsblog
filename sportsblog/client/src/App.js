@@ -1,105 +1,101 @@
-import React, { Component } from 'react';
-import './App.css';
-import axios from 'axios';
-import Navbar from './components/nav/navbar'
-import LoginView from './components/login/loginview'
-import Articles from './components/articles/articles'
-import { Icon
-} from 'antd';
-import Home from './components/home/home'
-import Merch from './components/merch/merch'
-import Roster from './components/roster/roster'
-import { login } from './services/auth';
+import React, { Component } from "react";
+import "./App.css";
+import axios from "axios";
+import NavBar from "./components/nav/navbar";
+import LoginView from "./components/login/loginview";
+import Articles from "./components/articles/articles";
+import { Icon } from "antd";
+import Home from "./components/home/home";
+import Merch from "./components/merch/merch";
+import Roster from "./components/roster/roster";
+import { login } from "./services/auth";
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      login : {
-        email: '',
-        password: ''
+      login: {
+        email: "",
+        password: ""
       },
       register: {
-        email: '',
-        password: '',
-        password_confirmation: ''
+        email: "",
+        password: "",
+        password_confirmation: ""
       },
       post: {
-        articles: '',
-        comments: ''
+        articles: "",
+        comments: ""
       },
-      curView: '',
-    }
-        this.getPosts = this.getPosts.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleRegisterChange=this.handleRegisterChange.bind(this);
-         this.handleLogin = this.handleLogin.bind(this);
-         this.setView = this.setView.bind(this);
+      curView: ""
+    };
+    this.getPosts = this.getPosts.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleRegisterChange = this.handleRegisterChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.setView = this.setView.bind(this);
+
   }
 
   async getPosts() {
-      const resp = await axios.get('/posts');
-      this.setState({
-        post: {
+    const resp = await axios.get("/posts");
+    this.setState({
+      post: {
         articles: resp.data
       },
       curView: []
     });
-    }
-
-   componentDidMount(){
-      this.getPosts();
-    }
-
-      handleChange(e){
-        const {name, value} = e.target
-        this.setState(prevState => (
-          {
-            login: {
-              ...prevState.login,
-              [name] : value
-            }
-          }
-        ))
-      }
-
-      handleRegisterChange(e){
-        const {name, value} = e.target
-        this.setState(prevState => (
-          {
-            register: {
-              ...prevState.register,
-              [name] : value
-            }
-          }
-        ))
-      }
-
-      async handleLogin(e){
-        e.preventDefault();
-        const tokenData = await login(this.state.login);
-        console.log(tokenData);
-        localStorage.setItem('token', tokenData.jwt)
-      }
-
-  async setView(view) {
-    this.setState({curView: view});
   }
 
+  componentDidMount() {
+    this.getPosts();
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      login: {
+        ...prevState.login,
+        [name]: value
+      }
+    }));
+  }
+
+  handleRegisterChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      register: {
+        ...prevState.register,
+        [name]: value
+      }
+    }));
+  }
+
+  async handleLogin(e) {
+    e.preventDefault();
+    const tokenData = await login(this.state.login);
+    console.log(tokenData);
+    localStorage.setItem("token", tokenData.jwt);
+  }
+
+  async setView(view) {
+    this.setState({ curView: view });
+  }
 
   render() {
-    const view = this.state.curView
-  let butt;
+    const view = this.state.curView;
+    let butt;
 
     switch (view) {
-
       case 'Login':
-        butt = <LoginView handleViewChange={this.setView}/>
+        butt = <LoginView handleViewChange={this.setView} />;
         break;
       default:
-      butt =   <Articles
-           holddata = {this.state.post.articles} />
-// this.state.post.articles.length === 0 ? null:
+        butt = <Articles
+          holddata={this.state.post.articles}
+          handleViewChange={this.setView}
+          />;
+      // this.state.post.articles.length === 0 ? null:
       // default:
       // butt = <Articles handleViewChange={this.setView}
       //   holddata = {this.state.post.articles}/>
@@ -107,21 +103,14 @@ class App extends Component {
 
     return (
       <div className="App">
+        <NavBar
+          handleViewChange={this.setView}
+           />
 
-
-       <Icon type="user"
-       style={{ fontSize: '30px', color: 'white' }}
-
-       onClick={() => this.setView('Login')} />
-
-
-
-      {butt}
-
-  </div>
-)
-
-}
+        {butt}
+      </div>
+    );
+  }
 }
 
 export default App;
