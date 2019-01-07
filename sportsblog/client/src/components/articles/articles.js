@@ -7,6 +7,7 @@ import './articles.css';
 
 export default function Articles(props) {
   return (
+    props.holddata ?
     <div className="articleList">
     {props.holddata.map(index => (
                  <div className= "baggy" key={index.id}>
@@ -19,5 +20,5 @@ export default function Articles(props) {
 
           ))}
 
-    </div>
+    </div>: <div>loading</div>
 )}

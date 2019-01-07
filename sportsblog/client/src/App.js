@@ -90,11 +90,16 @@ class App extends Component {
   render() {
     const view = this.state.curView
   let butt;
+
     switch (view) {
 
       case 'Login':
         butt = <LoginView handleViewChange={this.setView}/>
-
+        break;
+      default:
+      butt =   <Articles
+           holddata = {this.state.post.articles} />
+// this.state.post.articles.length === 0 ? null:
       // default:
       // butt = <Articles handleViewChange={this.setView}
       //   holddata = {this.state.post.articles}/>
@@ -110,12 +115,7 @@ class App extends Component {
        onClick={() => this.setView('Login')} />
 
 
-     {this.state.post.articles.length === 0 && this.state.curView.length === 0 ? null: <Articles
-           holddata = {this.state.post.articles}
-           handleViewChange={this.setView}
-          />
 
-      }
       {butt}
 
   </div>
@@ -137,3 +137,9 @@ export default App;
 // : null}
 
 // }
+// {this.state.post.articles.length === 0 && this.state.curView.length === 0 ? null: <Articles
+//       holddata = {this.state.post.articles}
+//       handleViewChange={this.setView}
+//      />
+//
+//  }
