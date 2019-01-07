@@ -7,18 +7,10 @@ import Home from './components/home/home'
 import Merch from './components/merch/merch'
 import Roster from './components/roster/roster'
 
-// async function getPosts() {
-//   const resp = await axios.get('/posts');
-//   console.log(resp.data);
-// }
-//
-// getPosts();
-
 class App extends Component {
   constructor(){
     super();
     this.state = {
-
       login : {
         email: '',
         password: ''
@@ -27,47 +19,33 @@ class App extends Component {
         email: '',
         password: '',
         password_confirmation: ''
-
       },
-      articles: {
-        articles: []
-
+      post: {
+        articles: ''
       }
     }
         this.getPosts = this.getPosts.bind(this);
   }
+
   async getPosts() {
       const resp = await axios.get('/posts');
-      this.setState({articles: resp.data});
-
+      this.setState({post: {
+        articles: resp.data}});
     }
-    componentDidMount(){
+
+   componentDidMount(){
       this.getPosts();
     }
-
-    getView() {
-   const view = this.state.curView
-   switch (view) {
-
-     case 'Roster':
-       return <Roster holddata={this.state.articles.body}/>
-
-     case 'Merch':
-       return <Merch holdrandata={this.state.ranQuote} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSubmitTwo={this.handleSubmitTwo} handleViewChange={this.setView} isCorrect={this.state.isCorrect} isSubmitted={this.state.isSubmitted}/>
-
-     default:
-       return <Home handleViewChange={this.setView}/>
-
-   }
- }
   render() {
     return (
       <div className="App">
+<Navbar />
+        {this.state.post.articles.length === 0 ? null: <Articles
+            holddata = {this.state.post.articles}
 
-        <Navbar />
+           />
+}
 
-        <Articles />
-        {console.log(this.state.articles)}
       </div>
     );
   }
