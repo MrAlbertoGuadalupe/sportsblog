@@ -1,0 +1,8 @@
+@import '~antd/dist/antd.css';
+
+.baggy {
+  color: white;
+}
+.ant-comment-content-author-name > a{
+  color: gray;
+}

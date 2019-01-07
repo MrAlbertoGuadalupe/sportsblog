@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LoginView from '../login/loginview.js';
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class Navbar extends Component {
            }
          {this.state.user ? <button onClick={this.logout} className="navButton">Log off</button>
          : null}
-
+         <LoginView />
       </div>
      )
    }
