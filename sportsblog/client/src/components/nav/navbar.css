@@ -1,0 +1,8 @@
+header {
+  display: grid;
+}
+
+.profileicon {
+  display: flex;
+  flex-direction: column;
+}
