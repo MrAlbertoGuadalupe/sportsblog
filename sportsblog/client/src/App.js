@@ -37,6 +37,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.setView = this.setView.bind(this);
     this.newUser = this.newUser.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   async getPosts() {
@@ -64,6 +65,11 @@ class App extends Component {
   })
 }
 
+async deletePost() {
+    // let id = e.target.value;
+    // const deletepost = await axios.destroy("/posts/1")
+    console.log('trying to delete tho')
+  }
   componentDidMount() {
     this.getPosts();
     this.getUsers();
@@ -115,6 +121,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             login={this.state.login}
             register={this.state.register}
+
           />
         );
         break;
@@ -123,6 +130,7 @@ class App extends Component {
           <Articles
             holddata={this.state.post.articles}
             handleViewChange={this.setView}
+            deletepost={this.deletePost}
           />
       );
     }
