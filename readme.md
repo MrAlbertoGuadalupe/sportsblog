@@ -2,6 +2,15 @@
 a sports blog site where sports articles are posted and users can leave comments on the articles
 ![Models](ERD.jpeg)
 ![Wireframe](wireframe.png)
+
+## Instructions to get App running
+clone project  
+rails db:drop db:create db:migrate db:seed  
+npm i  
+CD into client  
+npm i  
+rails start  
+
 ### Back-End Construction
 Ruby on Rails (Hope)  
 Express(Backup)  
