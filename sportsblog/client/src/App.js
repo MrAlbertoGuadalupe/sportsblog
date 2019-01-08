@@ -12,10 +12,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      users: {
-        email: "",
-        password: ""
-      },
       login: {
         email: "",
         password: ""
@@ -66,9 +62,12 @@ class App extends Component {
 }
 
 async deletePost() {
-    // let id = e.target.value;
-    // const deletepost = await axios.destroy("/posts/1")
-    console.log('trying to delete tho')
+  const token = localStorage.getItem('token');
+  const request = axios.delete("/posts/1",{
+        headers: {
+            Authorization: token
+        }
+    });
   }
   componentDidMount() {
     this.getPosts();

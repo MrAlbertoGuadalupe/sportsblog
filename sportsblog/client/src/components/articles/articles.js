@@ -1,6 +1,6 @@
 import React from "react";
 import Comm from "./comments.js";
-import { Comment, Avatar, Form, List, Input } from "antd";
+// import { Comment, Avatar, Form, List, Input } from "antd";
 import "./articles.css";
 
 export default function Articles(props) {
@@ -12,10 +12,11 @@ export default function Articles(props) {
           <p>{index.body}</p>
           <button
           type= "submit"
-          deletepost = {props.deletePost}
+          onClick = {props.deletepost}
           >Delete button
           </button>
           <Comm />
+
         </div>
       ))}
 
