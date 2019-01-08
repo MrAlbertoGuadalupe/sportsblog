@@ -1,24 +1,21 @@
-import React from 'react';
-import Comm from './comments.js'
-import {
-  Comment, Avatar, Form, Button, List, Input,
-} from 'antd';
-import './articles.css';
+import React from "react";
+import Comm from "./comments.js";
+import { Comment, Avatar, Form, Button, List, Input } from "antd";
+import "./articles.css";
 
 export default function Articles(props) {
-  return (
-    props.holddata ?
+  return props.holddata ? (
     <div className="articleList">
-    {props.holddata.map(index => (
-                 <div className= "baggy" key={index.id}>
+      {props.holddata.map(index => (
+        <div className="baggy" key={index.id}>
+          <p>{index.title}</p>
+          <p>{index.body}</p>
 
-              <p>{index.title}</p>
-              <p>{index.body}</p>
-
-<Comm />
-            </div>
-
-          ))}
-
-    </div>: <div>loading</div>
-)}
+          <Comm />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div>loading</div>
+  );
+}
