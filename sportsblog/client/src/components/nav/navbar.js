@@ -1,11 +1,12 @@
 import React from 'react';
 import { Icon } from "antd";
-
+import "./navbar.css";
 
 export default function NavBar(props) {
   return (
-    <header>
-    <a><img src={ require('../media/logo.webp')} style={{ height: "150px" }} alt={'home'}  /></a>
+    <header className = "navbar">
+    <a><img src={ require('../media/logo.webp')} className = "logohead"  style={{ height: "150px" }} alt={'home'}
+      onClick={() => props.handleViewChange('default')} /></a>
     <Icon
       className = "profileicon"
       type="user"
@@ -18,4 +19,3 @@ export default function NavBar(props) {
 
           )
 }
-// onClick={() => this.setView('mainView')}

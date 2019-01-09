@@ -1,8 +1,15 @@
-header {
-  display: grid;
+.navbar {
+  display: flex;
+       flex-direction: row;
+       justify-content: space-between;
 }
 
+
 .profileicon {
-  display: flex;
-  flex-direction: column;
+
+  align-content: flex-end;
+}
+.logohead {
+  
+  align-content: flex-start;
 }

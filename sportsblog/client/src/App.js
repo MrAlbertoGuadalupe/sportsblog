@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
 import NavBar from "./components/nav/navbar";
+import CreateArticle from "./components/articles/createarticle";
 import LoginView from "./components/login/loginview";
 import Articles from "./components/articles/articles";
 import { Icon } from "antd";
-
+import jwt_decode from 'jwt-decode';
 import { login } from "./services/auth";
+
+
 
 class App extends Component {
   constructor() {
@@ -25,15 +28,22 @@ class App extends Component {
         articles: "",
         comments: ""
       },
+      newarticle: {
+        title: "",
+        body: ""
+      },
       curView: ""
     };
     this.getPosts = this.getPosts.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRegisterChange = this.handleRegisterChange.bind(this);
+    this.handleArticleChange = this.handleArticleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.setView = this.setView.bind(this);
     this.newUser = this.newUser.bind(this);
     this.deletePost = this.deletePost.bind(this);
+    this.updatePost = this.updatePost.bind(this);
+    this.createPost = this.createPost.bind(this);
   }
 
   async getPosts() {
@@ -47,26 +57,59 @@ class App extends Component {
   }
   async getUsers() {
     const resp = await axios.get("/users");
-    console.log(resp.data)
-
-}
+    console.log(resp.data);
+  }
   async newUser() {
     const newuser = await axios.post("/users");
-    console.log(newuser)
+    console.log(newuser);
     this.setState({
       users: {
         email: newuser.data,
         password: newuser.data
       }
-  })
-}
+    });
+  }
+  async createComment() {
+    const token = localStorage.getItem("token");
+    console.log("clicked create comment");
+    const request = axios.create("/posts", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
 
-async deletePost() {
-  const token = localStorage.getItem('token');
-  const request = axios.delete("/posts/1",{
-        headers: {
-            Authorization: token
-        }
+  async deletePost() {
+    const token = localStorage.getItem("token");
+    const request = axios.delete("/posts/1", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+  async createPost(e) {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const decoded = jwt_decode(token);
+    const request = axios.post(`/users/${decoded.sub}/posts`, { post: this.state.newarticle}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }});
+    const newarticle = this.getPosts;
+    this.setState(prevState => ({
+      newarticle: {
+        ...prevState.newarticle,
+        newarticle
+      }
+    }));
+  }
+  async updatePost() {
+    const token = localStorage.getItem("token");
+    console.log("clicked edit");
+    const request = axios.put("/posts/1", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
   componentDidMount() {
@@ -79,6 +122,15 @@ async deletePost() {
     this.setState(prevState => ({
       login: {
         ...prevState.login,
+        [name]: value
+      }
+    }));
+  }
+  handleArticleChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      newarticle: {
+        ...prevState.newarticle,
         [name]: value
       }
     }));
@@ -113,14 +165,12 @@ async deletePost() {
       case "Login":
         butt = (
           <LoginView
-
             handleViewChange={this.setView}
             handleChange={this.handleChange}
             handleRegisterChange={this.handleRegisterChange}
             handleLogin={this.handleLogin}
             login={this.state.login}
             register={this.state.register}
-
           />
         );
         break;
@@ -130,14 +180,20 @@ async deletePost() {
             holddata={this.state.post.articles}
             handleViewChange={this.setView}
             deletepost={this.deletePost}
+            updatepost={this.updatePost}
           />
-      );
+        );
     }
 
     return (
       <div className="App">
         <NavBar handleViewChange={this.setView} />
-
+        <CreateArticle
+          handlearticlechange={this.handleArticleChange}
+          valuetitle={this.state.newarticle.title}
+          valuebody={this.state.newarticle.body}
+          createPost={this.createPost}
+        />
         {butt}
       </div>
     );
