@@ -5,7 +5,6 @@ import NavBar from "./components/nav/navbar";
 import CreateArticle from "./components/articles/createarticle";
 import LoginView from "./components/login/loginview";
 import Articles from "./components/articles/articles";
-import { Icon } from "antd";
 import jwt_decode from 'jwt-decode';
 import { login } from "./services/auth";
 
@@ -57,7 +56,7 @@ class App extends Component {
   }
   async getUsers() {
     const resp = await axios.get("/users");
-    console.log(resp.data);
+
   }
   async newUser() {
     const newuser = await axios.post("/users");
@@ -79,14 +78,18 @@ class App extends Component {
     });
   }
 
-  async deletePost() {
+  async deletePost(e) {
+    const data = e.currentTarget.value;
     const token = localStorage.getItem("token");
-    const request = axios.delete("/posts/1", {
+
+    const request = axios.delete(`/posts/${data}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
+
   }
+
   async createPost(e) {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -103,15 +106,23 @@ class App extends Component {
       }
     }));
   }
-  async updatePost() {
+  async updatePost(e) {
+    e.preventDefault();
+    const data = e.currentTarget.value;
     const token = localStorage.getItem("token");
-    console.log("clicked edit");
-    const request = axios.put("/posts/1", {
+    const request = axios.put(`/posts/${data}`, { post: this.state.newarticle}, {
       headers: {
         Authorization: `Bearer ${token}`
+      }});
+    const newarticle = this.getPosts;
+    this.setState(prevState => ({
+      newarticle: {
+        ...prevState.newarticle,
+        newarticle
       }
-    });
+    }));
   }
+
   componentDidMount() {
     this.getPosts();
     this.getUsers();
@@ -179,8 +190,12 @@ class App extends Component {
           <Articles
             holddata={this.state.post.articles}
             handleViewChange={this.setView}
-            deletepost={this.deletePost}
+            deletePost={this.deletePost}
             updatepost={this.updatePost}
+            handlearticlechange={this.handleArticleChange}
+            valuetitle={this.state.newarticle.title}
+            valuebody={this.state.newarticle.body}
+            createPost={this.createPost}
           />
         );
     }
@@ -188,12 +203,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar handleViewChange={this.setView} />
-        <CreateArticle
-          handlearticlechange={this.handleArticleChange}
-          valuetitle={this.state.newarticle.title}
-          valuebody={this.state.newarticle.body}
-          createPost={this.createPost}
-        />
+
         {butt}
       </div>
     );

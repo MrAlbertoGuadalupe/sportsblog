@@ -14,22 +14,30 @@ export default function Articles(props) {
           <button
           type= "submit"
           className = "butt"
-          onClick = {props.deletepost}
+          value = {index.id}
+          onClick = {props.deletePost}
           >Delete button
           </button>
           <button
           type= "submit"
           className = "butt"
+
           onClick = {props.updatepost}
           >Edit
           </button>
           <input placeholder="edit an article">
 
           </input>
-          
+
 
           <Comm />
-
+          <CreateArticle
+          deletePost={props.deletePost}
+          updatePost={props.updatePost}
+          handlearticlechange={props.handlearticlechange}
+          valuetitle={props.valuetitle}
+          valuebody={props.valuebody}
+          createPost={props.createPost}/>
         </div>
       ))}
 

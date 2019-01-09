@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 // import { Form, Icon, Input, Button, Checkbox } from "antd";
 
 export default function CreateArticle(props) {
@@ -24,7 +24,7 @@ export default function CreateArticle(props) {
 
         />
 
-      <button type="submit" className="login-form-button">
+      <button type="submit"  className="login-form-button">
       create article
         </button>
       </form>

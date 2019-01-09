@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import React from "react";
+import { Form, Icon, Input, Button } from "antd";
 import "./form.css";
 
 function RegisterForm(props) {
