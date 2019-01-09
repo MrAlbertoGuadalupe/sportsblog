@@ -12,3 +12,10 @@
 .body {
   color: white;
 }
+
+.articleList{
+  border: solid green 2px;
+}
+.baggy{
+  border: solid yellow 2px;
+}

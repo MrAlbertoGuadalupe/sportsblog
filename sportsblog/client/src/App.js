@@ -31,9 +31,10 @@ class App extends Component {
       },
       editarticle: {
         title: "",
-        body: ""
+        body: "",
       },
-      curView: ""
+      curView: "",
+      editID: 0
     };
     this.getPosts = this.getPosts.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -46,6 +47,7 @@ class App extends Component {
     this.deletePost = this.deletePost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.createPost = this.createPost.bind(this);
+    this.toggleState = this.toggleState.bind(this);
   }
 
   async getPosts() {
@@ -80,6 +82,13 @@ class App extends Component {
     });
   }
 
+ toggleState(id) {
+  this.setState({
+    editID: id
+  })
+  console.log('toggle clicked ', id)
+}
+
   async deletePost(e) {
     const data = e.currentTarget.value;
     const token = localStorage.getItem("token");
@@ -113,6 +122,7 @@ class App extends Component {
     }));
   }
   async editPost(id) {
+    console.log('ran edit post')
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.put(
@@ -157,15 +167,28 @@ class App extends Component {
       }
     }));
   }
-  handleEditChange(e, id) {
-    const { name, value } = e.target;
-    this.setState(prevState => ({
+
+  changeId(e){
+
+    this.setState({
       editarticle: {
-        ...prevState.editarticle,
-        [name]: value
+        currentTitleEditId: e
       }
-    }));
+    });
+    console.log('change id called')
   }
+
+
+  handleEditChange(e, id) {
+      const { name, value } = e.target;
+      this.setState(prevState => ({
+        editarticle: {
+          ...prevState.editarticle,
+          [name]: value
+        }
+      }));
+    }
+
 
   handleRegisterChange(e) {
     const { name, value } = e.target;
@@ -219,6 +242,9 @@ class App extends Component {
             editTitle={this.state.editarticle.title}
             editBody={this.state.editarticle.body}
             createPost={this.createPost}
+            currentEditId={this.state.editarticle.currentTitleEditId}
+            toggleState={this.toggleState}
+            editID={this.state.editID}
           />
         );
     }
@@ -234,3 +260,26 @@ class App extends Component {
 }
 
 export default App;
+
+//   handleEditChange(e) {
+//
+//     this.changeId(e.currentTarget.id);
+//
+//     const { name, value } = e.target;
+//     const id = e.currentTarget.id;
+//     console.log('id is ', id)
+//     console.log('state id is', this.state.editarticle.currentTitleEditId)
+//
+//
+//     if (id == this.state.editarticle.currentTitleEditId)
+//     {
+//     this.setState(prevState => ({
+//       editarticle: {
+//         ...prevState.editarticle,
+//         [name]: value,
+//         currentTitleEditId: e
+//       }
+//     }));
+//   }
+//   this.changeId(0);
+// }
