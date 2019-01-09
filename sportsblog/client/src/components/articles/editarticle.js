@@ -1,28 +1,31 @@
 import React from "react";
 // import { Form, Icon, Input, Button, Checkbox } from "antd";
 
-export default function CreateArticle(props) {
+export default function EditArticle(props) {
   return (
     <div>
-      <form className="login-form" onSubmit={props.createPost}>
+      <form className="login-form" onSubmit={(e) => {
+          e.preventDefault();
+          props.editPost(props.article.id);
+        }}>
         <input
           prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Title"
-          onChange={props.handleCreateChange}
-          value={props.createtitle}
+          onChange={props.handleEditChange}
+          value={props.editTitle}
           name="title"
         />
 
         <input
           prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Body"
-          value={props.createbody}
-          onChange={props.handleCreateChange}
+          value={props.editBody}
+          onChange={props.handleEditChange}
           name="body"
         />
 
         <button type="submit" className="login-form-button">
-          create article
+          Edit article
         </button>
       </form>
     </div>

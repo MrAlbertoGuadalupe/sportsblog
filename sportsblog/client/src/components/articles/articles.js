@@ -1,5 +1,6 @@
 import React from "react";
 import CreateArticle from "./createarticle.js";
+import EditArticle from "./editarticle.js";
 import Comm from "./comments.js";
 // import { Comment, Avatar, Form, List, Input } from "antd";
 import "./articles.css";
@@ -9,38 +10,36 @@ export default function Articles(props) {
     <div className="articleList">
       {props.holddata.map(index => (
         <div className="baggy" key={index.id}>
-          <p className = "title">{index.title}</p>
-          <p className = "body">{index.body}</p>
+          <h2 className="title">{index.title}</h2>
+          <p className="body">{index.body}</p>
           <button
-          type= "submit"
-          className = "butt"
-          value = {index.id}
-          onClick = {props.deletePost}
-          >Delete button
+            type="submit"
+            className="butt"
+            value={index.id}
+            onClick={props.deletePost}
+          >
+            Delete button
           </button>
-          <button
-          type= "submit"
-          className = "butt"
-
-          onClick = {props.updatepost}
-          >Edit
-          </button>
-          <input placeholder="edit an article">
-
-          </input>
-
-
+          <EditArticle
+            article={index}
+            editPost={props.editPost}
+            handleEditChange={props.handleEditChange}
+            editTody={props.editBody}
+            editTitle={props.editTitle}
+          
+          />
           <Comm />
-          <CreateArticle
-          deletePost={props.deletePost}
-          updatePost={props.updatePost}
-          handlearticlechange={props.handlearticlechange}
-          valuetitle={props.valuetitle}
-          valuebody={props.valuebody}
-          createPost={props.createPost}/>
         </div>
+
       ))}
 
+      <CreateArticle
+        deletePost={props.deletePost}
+        handleCreateChange={props.handleCreateChange}
+        createtitle={props.createtitle}
+        createbody={props.createbody}
+        createPost={props.createPost}
+      />
     </div>
   ) : (
     <div>loading</div>

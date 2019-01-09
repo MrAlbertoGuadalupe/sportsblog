@@ -5,10 +5,8 @@ import NavBar from "./components/nav/navbar";
 import CreateArticle from "./components/articles/createarticle";
 import LoginView from "./components/login/loginview";
 import Articles from "./components/articles/articles";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import { login } from "./services/auth";
-
-
 
 class App extends Component {
   constructor() {
@@ -31,17 +29,22 @@ class App extends Component {
         title: "",
         body: ""
       },
+      editarticle: {
+        title: "",
+        body: ""
+      },
       curView: ""
     };
     this.getPosts = this.getPosts.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRegisterChange = this.handleRegisterChange.bind(this);
-    this.handleArticleChange = this.handleArticleChange.bind(this);
+    this.handleCreateChange = this.handleCreateChange.bind(this);
+    this.handleEditChange = this.handleEditChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.setView = this.setView.bind(this);
     this.newUser = this.newUser.bind(this);
     this.deletePost = this.deletePost.bind(this);
-    this.updatePost = this.updatePost.bind(this);
+    this.editPost = this.editPost.bind(this);
     this.createPost = this.createPost.bind(this);
   }
 
@@ -56,7 +59,6 @@ class App extends Component {
   }
   async getUsers() {
     const resp = await axios.get("/users");
-
   }
   async newUser() {
     const newuser = await axios.post("/users");
@@ -73,7 +75,7 @@ class App extends Component {
     console.log("clicked create comment");
     const request = axios.create("/posts", {
       headers: {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     });
   }
@@ -87,17 +89,21 @@ class App extends Component {
         Authorization: `Bearer ${token}`
       }
     });
-
   }
 
   async createPost(e) {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
-    const request = axios.post(`/users/${decoded.sub}/posts`, { post: this.state.newarticle}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }});
+    const request = axios.post(
+      `/users/${decoded.sub}/posts`,
+      { post: this.state.newarticle },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
     const newarticle = this.getPosts;
     this.setState(prevState => ({
       newarticle: {
@@ -106,19 +112,23 @@ class App extends Component {
       }
     }));
   }
-  async updatePost(e) {
-    e.preventDefault();
-    const data = e.currentTarget.value;
+  async editPost(id) {
     const token = localStorage.getItem("token");
-    const request = axios.put(`/posts/${data}`, { post: this.state.newarticle}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }});
-    const newarticle = this.getPosts;
+    const decoded = jwt_decode(token);
+    const request = axios.put(
+      `/users/${decoded.sub}/posts/${id}`,
+      { post: this.state.editarticle },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    const articles = this.getPosts;
     this.setState(prevState => ({
-      newarticle: {
-        ...prevState.newarticle,
-        newarticle
+      articles: {
+        ...prevState.article,
+        articles
       }
     }));
   }
@@ -137,11 +147,21 @@ class App extends Component {
       }
     }));
   }
-  handleArticleChange(e) {
+
+  handleCreateChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
       newarticle: {
         ...prevState.newarticle,
+        [name]: value
+      }
+    }));
+  }
+  handleEditChange(e, id) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      editarticle: {
+        ...prevState.editarticle,
         [name]: value
       }
     }));
@@ -191,10 +211,13 @@ class App extends Component {
             holddata={this.state.post.articles}
             handleViewChange={this.setView}
             deletePost={this.deletePost}
-            updatepost={this.updatePost}
-            handlearticlechange={this.handleArticleChange}
-            valuetitle={this.state.newarticle.title}
-            valuebody={this.state.newarticle.body}
+            editPost={this.editPost}
+            handleEditChange={this.handleEditChange}
+            handleCreateChange={this.handleCreateChange}
+            createtitle={this.state.newarticle.title}
+            createbody={this.state.newarticle.body}
+            editTitle={this.state.editarticle.title}
+            editBody={this.state.editarticle.body}
             createPost={this.createPost}
           />
         );
