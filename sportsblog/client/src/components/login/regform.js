@@ -10,6 +10,7 @@ function RegisterForm(props) {
       <input
         placeholder="Username"
         name="email"
+        autocomplete="email"
         value={props.email}
         onChange={props.typingRegister}
       />
@@ -18,12 +19,14 @@ function RegisterForm(props) {
       <input
         placeholder="Password"
         name="password"
+        autocomplete="password"
         value={props.password}
         onChange={props.typingRegister}
       />
 
     <input
         type="password"
+        autocomplete="password"
         placeholder="Enter Password Again"
         name="password_confirmation"
         value={props.password_confirmation}

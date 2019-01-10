@@ -3,7 +3,9 @@ import "./App.css";
 import axios from "axios";
 import NavBar from "./components/nav/navbar";
 import CreateArticle from "./components/articles/createarticle";
+import CommentList from "./components/articles/commentlist";
 import LoginView from "./components/login/loginview";
+import LogoutView from "./components/login/logoutview";
 import Articles from "./components/articles/articles";
 import jwt_decode from "jwt-decode";
 import { login } from "./services/auth";
@@ -13,9 +15,9 @@ class App extends Component {
     super();
     this.state = {
       user: {
-        email: '',
-        password: '',
-        password_confirmation: ''
+        email: "",
+        password: "",
+        password_confirmation: ""
       },
       login: {
         email: "",
@@ -29,16 +31,24 @@ class App extends Component {
         title: "",
         body: ""
       },
+      newcomment: {
+        title: "",
+        body: ""
+      },
       editarticle: {
         title: "",
         body: ""
       },
+      editcomment: {
+        title: "",
+        body: ""
+      },
+      userisloggedin: false,
       curView: "",
       editID: 0
     };
     this.getPosts = this.getPosts.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
     this.handleCreateChange = this.handleCreateChange.bind(this);
     this.handleEditChange = this.handleEditChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -50,30 +60,54 @@ class App extends Component {
     this.userSubmitted = this.userSubmitted.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.typingRegister = this.typingRegister.bind(this);
+    this.logout = this.logout.bind(this);
+    this.createComment = this.createComment.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
   }
 
   async getPosts() {
     const resp = await axios.get("/posts");
+  }
+  async getComments() {
+    const resp = await axios.get("/posts/1/comments");
+  }
+  async getBoth() {
+    const resptwo = await axios.get("/posts/1/comments");
+    const resp = await axios.get("posts");
     this.setState({
       post: {
-        articles: resp.data
+        articles: resp.data,
+        comments: resptwo.data
       },
       curView: []
     });
   }
+
   async getUsers() {
     const resp = await axios.get("/users");
-    console.log(resp)
   }
 
-  async createComment() {
+  async createComment(e) {
+    e.preventDefault();
     const token = localStorage.getItem("token");
+    const decoded = jwt_decode(token);
     console.log("clicked create comment");
-    const request = axios.create("/posts", {
-      headers: {
-        Authorization: `Bearer ${token}`
+    const request = axios.create(
+      `/posts/${decoded.sub}/comments`,
+      { post: this.state.comments },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    });
+    );
+    const newcomment = this.getComments;
+    this.setState(prevState => ({
+      newcomment: {
+        ...prevState.newcomment,
+        newcomment
+      }
+    }));
   }
 
   toggleState(id) {
@@ -116,27 +150,27 @@ class App extends Component {
     }));
   }
 
-async userSubmitted(userInfo){
-  await axios.post(`/users`, {user:userInfo});
-}
+  async userSubmitted(userInfo) {
+    await axios.post(`/users`, { user: userInfo });
+  }
 
-   registerUser(e) {
+  registerUser(e) {
     e.preventDefault();
     this.userSubmitted(this.state.user);
-}
+  }
 
-typingRegister(e){
-  const {name, value} = e.target;
-  this.setState(prevState => ({
-    user:{
-      ...prevState.user,
-      [name]: value
-    }
-  }))
-}
+  typingRegister(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        [name]: value
+      }
+    }));
+  }
 
   async editPost(id) {
-    console.log('ran edit post');
+    console.log("ran edit post");
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.put(
@@ -158,7 +192,7 @@ typingRegister(e){
   }
 
   componentDidMount() {
-    this.getPosts();
+    this.getBoth();
     this.getUsers();
   }
 
@@ -177,15 +211,17 @@ typingRegister(e){
     const tokenData = await login(this.state.login);
     console.log(tokenData);
     localStorage.setItem("token", tokenData.jwt);
-
+    this.setState({
+      userisloggedin: true
+    });
   }
 
   async logout() {
+    console.log("logged out");
     localStorage.removeItem("token");
-    this.setView("mainView");
-    await this.setState({
-      token: "",
-      user: ""
+    this.setView("Logout");
+    this.setState({
+      userisloggedin: false
     });
   }
 
@@ -194,6 +230,15 @@ typingRegister(e){
     this.setState(prevState => ({
       newarticle: {
         ...prevState.newarticle,
+        [name]: value
+      }
+    }));
+  }
+  handleCommentChange(e, id) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      editcomment: {
+        ...prevState.editcomment,
         [name]: value
       }
     }));
@@ -241,6 +286,11 @@ typingRegister(e){
           />
         );
         break;
+      case "Logout":
+        butt = (
+          <LogoutView handleViewChange={this.setView} logout={this.logout} />
+        );
+        break;
       default:
         butt = (
           <Articles
@@ -258,13 +308,15 @@ typingRegister(e){
             currentEditId={this.state.editarticle.currentTitleEditId}
             toggleState={this.toggleState}
             editID={this.state.editID}
+            holdcommentdata ={this.state.post.comments}
           />
         );
     }
 
     return (
       <div className="App">
-        <NavBar handleViewChange={this.setView} />
+        <NavBar handleViewChange={this.setView} logout={this.logout} />
+
 
         {butt}
       </div>
@@ -293,3 +345,12 @@ export default App;
 //         user
 //       }
 // }));
+
+// <CreateComment
+//   handleCommentChange={this.handleCommentChange}
+//   commenttitle={this.state.newcomment.title}
+//   commentbody={this.state.newcomment.body}
+//   ecommenttitle={this.state.editcommenttitle}
+//   ecommentbody={this.state.editcomment.body}
+//   createComment={this.createComment}
+// />

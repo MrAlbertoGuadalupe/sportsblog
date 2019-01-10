@@ -9,7 +9,7 @@ return (
   <button
   type= "submit"
   className = "butt"
-  onClick = {props.createpost}
+  onClick = {props.createComment}
   >Add new comment
   </button>
   <input placeholder="add a comment">

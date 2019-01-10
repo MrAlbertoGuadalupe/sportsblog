@@ -12,22 +12,33 @@ Comment.destroy_all
  users = User.create([
   {
     email: 'a@a.co',
-    password: '1234'
+    password: '1234',
+    password_confirmation: '1234'
   }
 ])
 
 posts = Post.create([
  {
    user_id: 1,
-   title: 'First Article',
-   body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'
+   title: 'Brian Cashman confirms Domingo German has a fourth minor league option',
+   body: 'In a pleasantly surprisingly bit of news, Brian Cashman confirmed to Brendan Kuty that righty Domingo German has a fourth minor league option. That means the Yankees will be able to send him to Triple-A this coming season without exposing him to waivers. (Cashman also confirmed Luis Cessa out of options, which we knew already.)
+
+Long story short, players get three options once they’re added to the 40-man roster. That means they can be sent back and forth between MLB and the minors in three separate seasons with no issues. Once a player exhausts his three option years, he has to pass through waivers to go to the minors, which can create some roster headaches.
+
+The eligibility rules for a fourth option year were complicated a few years ago but MLB has apparently simplified things. Here are the fourth option rules:
+
+If a player misses an entire option year due to injury or expends his third option year before he has completed five professional seasons (Major Leagues and Minor Leagues included), he can receive a fourth option year.',
+   img_url: 'http://cdn.riveraveblues.com/wp-content/uploads/2018/06/Domingo-German-min.jpg'
  }
 ])
 
-comments = Comment.create([
+comments = Comment.create!([
  {
    title: 'First Comment',
-   body: 'This is the first comment'
+   body: 'This is the first comment',
+   posts_id: 1,
+   user_id: 1
+
  }
 ])
 

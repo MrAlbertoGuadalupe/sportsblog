@@ -14,12 +14,14 @@ export default function LoginForm(props) {
           onChange={props.handleChange}
           value={props.login.email}
           name="email"
+          autocomplete="email"
         />
 
       <input
           prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           type="password"
           placeholder="Password"
+          autocomplete="password"
           onChange={props.handleChange}
           name="password"
           value={props.login.password}

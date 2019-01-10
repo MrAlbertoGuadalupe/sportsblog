@@ -2,15 +2,17 @@ import React from "react";
 import CreateArticle from "./createarticle.js";
 import EditArticle from "./editarticle.js";
 import Comm from "./comments.js";
+import CommentList from "./commentlist.js"
 // import { Comment, Avatar, Form, List, Input } from "antd";
 import "./articles.css";
 
 export default function Articles(props) {
-  return props.holddata ? (
+  return props.holddata && props.holdcommentdata ? (
     <div className="articleList">
       {props.holddata.map(index => (
         <div className="baggy" key={index.id}>
           <h2 className="title">{index.title}</h2>
+          <img alt={index.img_url} src={index.img_url}/>
           <p className="body">{index.body}</p>
           {props.editID === index.id ?
             <div>
@@ -44,6 +46,8 @@ onClick={() => {
 >
 Edit button
 </button>
+<CommentList
+  holdcommentdata = {props.holdcommentdata}/>
 </div>
 
 )}

@@ -1,13 +1,18 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+# GET /comments
 
-  # GET /comments
-  def index
-    @comments = Comment.all
+def index
 
-    render json: @comments
+puts params.inspect
+if !(params[:posts_id].present?)
+  @comments = Comment.all
+else
+    @comments = Comment.where(posts_id: params[:posts_id])
   end
-
+  render json: @comments
+end
   # GET /comments/1
   def show
     render json: @comment
@@ -15,8 +20,9 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
-
+    puts params.inspect
+    @comment = current_user.comments.new(comment_params)
+    puts @comment
     if @comment.save
       render json: @comment, status: :created, location: @comment
     else
@@ -26,6 +32,7 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1
   def update
+    @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
       render json: @comment
     else
@@ -46,6 +53,6 @@ class CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:title, :body)
+      params.require(:comment).permit(:title, :body,:user_id, :posts_id)
     end
 end
