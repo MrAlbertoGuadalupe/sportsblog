@@ -12,9 +12,9 @@ export default function LoginView(props) {
         login={props.login}
       />
       <RegForm
-        onSubmit={props.handleRegister}
-        handleRegisterChange={props.handleRegisterChange}
-        register={props.register}
+        userSubmitted={props.userSubmitted}
+        registerUser={props.registerUser}
+        typingRegister={props.typingRegister}
       />
     </div>
   );

@@ -12,14 +12,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      user: {
+        email: '',
+        password: '',
+        password_confirmation: ''
+      },
       login: {
         email: "",
         password: ""
-      },
-      register: {
-        email: "",
-        password: "",
-        password_confirmation: ""
       },
       post: {
         articles: "",
@@ -31,23 +31,25 @@ class App extends Component {
       },
       editarticle: {
         title: "",
-        body: "",
+        body: ""
       },
       curView: "",
       editID: 0
     };
     this.getPosts = this.getPosts.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleRegisterChange = this.handleRegisterChange.bind(this);
+
     this.handleCreateChange = this.handleCreateChange.bind(this);
     this.handleEditChange = this.handleEditChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.setView = this.setView.bind(this);
-    this.newUser = this.newUser.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.createPost = this.createPost.bind(this);
     this.toggleState = this.toggleState.bind(this);
+    this.userSubmitted = this.userSubmitted.bind(this);
+    this.registerUser = this.registerUser.bind(this);
+    this.typingRegister = this.typingRegister.bind(this);
   }
 
   async getPosts() {
@@ -61,17 +63,9 @@ class App extends Component {
   }
   async getUsers() {
     const resp = await axios.get("/users");
+    console.log(resp)
   }
-  async newUser() {
-    const newuser = await axios.post("/users");
-    console.log(newuser);
-    this.setState({
-      users: {
-        email: newuser.data,
-        password: newuser.data
-      }
-    });
-  }
+
   async createComment() {
     const token = localStorage.getItem("token");
     console.log("clicked create comment");
@@ -82,12 +76,12 @@ class App extends Component {
     });
   }
 
- toggleState(id) {
-  this.setState({
-    editID: id
-  })
-  console.log('toggle clicked ', id)
-}
+  toggleState(id) {
+    this.setState({
+      editID: id
+    });
+    console.log("toggle clicked ", id);
+  }
 
   async deletePost(e) {
     const data = e.currentTarget.value;
@@ -121,8 +115,28 @@ class App extends Component {
       }
     }));
   }
+
+async userSubmitted(userInfo){
+  await axios.post(`/users`, {user:userInfo});
+}
+
+   registerUser(e) {
+    e.preventDefault();
+    this.userSubmitted(this.state.user);
+}
+
+typingRegister(e){
+  const {name, value} = e.target;
+  this.setState(prevState => ({
+    user:{
+      ...prevState.user,
+      [name]: value
+    }
+  }))
+}
+
   async editPost(id) {
-    console.log('ran edit post')
+    console.log('ran edit post');
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.put(
@@ -148,6 +162,7 @@ class App extends Component {
     this.getUsers();
   }
 
+  //login handleChange
   handleChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
@@ -156,6 +171,22 @@ class App extends Component {
         [name]: value
       }
     }));
+  }
+  async handleLogin(e) {
+    e.preventDefault();
+    const tokenData = await login(this.state.login);
+    console.log(tokenData);
+    localStorage.setItem("token", tokenData.jwt);
+
+  }
+
+  async logout() {
+    localStorage.removeItem("token");
+    this.setView("mainView");
+    await this.setState({
+      token: "",
+      user: ""
+    });
   }
 
   handleCreateChange(e) {
@@ -168,43 +199,24 @@ class App extends Component {
     }));
   }
 
-  changeId(e){
-
-    this.setState({
-      editarticle: {
-        currentTitleEditId: e
-      }
-    });
-    console.log('change id called')
-  }
-
-
   handleEditChange(e, id) {
-      const { name, value } = e.target;
-      this.setState(prevState => ({
-        editarticle: {
-          ...prevState.editarticle,
-          [name]: value
-        }
-      }));
-    }
-
-
-  handleRegisterChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      register: {
-        ...prevState.register,
+      editarticle: {
+        ...prevState.editarticle,
         [name]: value
       }
     }));
   }
 
-  async handleLogin(e) {
-    e.preventDefault();
-    const tokenData = await login(this.state.login);
-    console.log(tokenData);
-    localStorage.setItem("token", tokenData.jwt);
+  handleRegisterChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        [name]: value
+      }
+    }));
   }
 
   async setView(view) {
@@ -221,10 +233,11 @@ class App extends Component {
           <LoginView
             handleViewChange={this.setView}
             handleChange={this.handleChange}
-            handleRegisterChange={this.handleRegisterChange}
             handleLogin={this.handleLogin}
             login={this.state.login}
-            register={this.state.register}
+            userSubmitted={this.userSubmitted}
+            registerUser={this.registerUser}
+            typingRegister={this.typingRegister}
           />
         );
         break;
@@ -260,26 +273,23 @@ class App extends Component {
 }
 
 export default App;
-
-//   handleEditChange(e) {
-//
-//     this.changeId(e.currentTarget.id);
-//
-//     const { name, value } = e.target;
-//     const id = e.currentTarget.id;
-//     console.log('id is ', id)
-//     console.log('state id is', this.state.editarticle.currentTitleEditId)
-//
-//
-//     if (id == this.state.editarticle.currentTitleEditId)
-//     {
-//     this.setState(prevState => ({
-//       editarticle: {
-//         ...prevState.editarticle,
-//         [name]: value,
-//         currentTitleEditId: e
-//       }
-//     }));
-//   }
-//   this.changeId(0);
+// async registerUser(e) {
+//   e.preventDefault();
+//   const data = await axios.post('/users')
+//   console.log(data)
+//   const users = this.getUsers;
+//   this.setState(prevState => ({
+//     login: {
+//       ...prevState.user,
+//       users
+//     }
+//   }));
 // }
+//console.log('clicked register');
+//     const user= this.getUsers;
+//     this.setState(prevState => ({
+//       user: {
+//         ...prevState.user,
+//         user
+//       }
+// }));

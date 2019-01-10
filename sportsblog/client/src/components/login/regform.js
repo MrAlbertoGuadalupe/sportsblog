@@ -1,42 +1,38 @@
 import React from "react";
-import { Form, Icon, Input, Button } from "antd";
+
 import "./form.css";
 
 function RegisterForm(props) {
   return (
-    <Form className="login-form" onSubmit={props.handleRegister}>
+    <form className="login-form" onSubmit={props.registerUser}>
       <h2>Register</h2>
 
-      <Input
-        prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+      <input
         placeholder="Username"
-        onChange={props.handleRegisterChange}
         name="email"
-        value={props.register.email}
+        value={props.email}
+        onChange={props.typingRegister}
       />
       <br />
 
-      <Input
-        prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-        type="password"
+      <input
         placeholder="Password"
-        onChange={props.handleRegisterChange}
         name="password"
-        value={props.register.password}
+        value={props.password}
+        onChange={props.typingRegister}
       />
 
-      <Input
-        prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+    <input
         type="password"
         placeholder="Enter Password Again"
-        onChange={props.handleRegisterChange}
         name="password_confirmation"
-        value={props.register.password_confirmation}
+        value={props.password_confirmation}
+        onChange={props.typingRegister}
       />
-      <Button type="submit" className="login-form-button">
+    <button type="submit" className="login-form-button">
         Register
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 }
 
