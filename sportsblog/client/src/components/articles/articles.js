@@ -23,6 +23,7 @@ export default function Articles(props) {
                 editBody={props.editBody}
                 editTitle={props.editTitle}
                 currentEditId={props.currentTitleEditId}
+                editimgurl={props.editimgurl}
                 val={index.id}
               />
 </div> : (

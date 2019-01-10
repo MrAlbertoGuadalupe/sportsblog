@@ -37,7 +37,8 @@ class App extends Component {
       },
       editarticle: {
         title: "",
-        body: ""
+        body: "",
+        img_url: ""
       },
       editcomment: {
         title: "",
@@ -307,6 +308,7 @@ class App extends Component {
             createbody={this.state.newarticle.body}
             editTitle={this.state.editarticle.title}
             editBody={this.state.editarticle.body}
+            editimgurl={this.state.editarticle.img_url}
             createPost={this.createPost}
             currentEditId={this.state.editarticle.currentTitleEditId}
             toggleState={this.toggleState}

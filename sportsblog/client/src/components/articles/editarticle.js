@@ -21,12 +21,20 @@ export default function EditArticle(props) {
         />
 
       <input
-          
+
           placeholder="Body"
           value={props.editBody}
           onChange={props.handleEditChange}
           name="body"
         />
+        <input
+            placeholder="Img_Url"
+            onChange={props.handleEditChange}
+            name="img_url"
+            value={props.editimgurl}
+
+            name="img_url"
+          />
 
       <button type="submit"
 

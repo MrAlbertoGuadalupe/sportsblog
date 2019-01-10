@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 2019_01_10_053832) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "posts_id"
+    t.bigint "post_id"
     t.bigint "user_id"
-    t.index ["posts_id"], name: "index_comments_on_posts_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -48,6 +48,5 @@ ActiveRecord::Schema.define(version: 2019_01_10_053832) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "comments", "posts", column: "posts_id"
   add_foreign_key "comments", "users"
 end

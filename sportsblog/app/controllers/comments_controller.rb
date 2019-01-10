@@ -21,10 +21,10 @@ end
   # POST /comments
   def create
     puts params.inspect
-    @comment = current_user.comments.new(comment_params)
+    @comment = current_user.comments.new(comment_params.merge(post_id: params[:post_id]))
     puts @comment
     if @comment.save
-      render json: @comment, status: :created, location: @comment
+      render json: @comment, status: :created
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
