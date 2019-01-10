@@ -1,6 +1,6 @@
 import React from "react";
 
-// import { Comment, Avatar, Form, List, Input } from "antd";
+
 import "./articles.css";
 
 export default function Comm(props) {
@@ -11,7 +11,7 @@ return (
   className = "butt"
   onClick = {props.createComment}
   >Add new comment
-  </button>
+</button>
   <input placeholder="add a comment">
 
   </input>

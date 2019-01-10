@@ -194,6 +194,7 @@ class App extends Component {
   componentDidMount() {
     this.getBoth();
     this.getUsers();
+
   }
 
   //login handleChange
@@ -264,6 +265,8 @@ class App extends Component {
     }));
   }
 
+
+
   async setView(view) {
     this.setState({ curView: view });
   }
@@ -315,7 +318,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <NavBar handleViewChange={this.setView} logout={this.logout} />
+        <NavBar handleViewChange={this.setView} logout={this.logout} userisloggedin={this.state.userisloggedin}/>
 
 
         {butt}

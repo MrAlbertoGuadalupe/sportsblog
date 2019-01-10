@@ -1,10 +1,10 @@
 import React from "react";
-// import { Form, Icon, Input, Button, Checkbox } from "antd";
+
 
 export default function CreateArticle(props) {
   return (
-    <div>
-      <form className="login-form" onSubmit={props.createPost}>
+    <div className = "createarticle">
+      <form className="createarticleform" onSubmit={props.createPost}>
         <input
           prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Title"
@@ -13,7 +13,7 @@ export default function CreateArticle(props) {
           name="title"
         />
 
-        <input
+      <input
           prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Body"
           value={props.createbody}
@@ -21,7 +21,7 @@ export default function CreateArticle(props) {
           name="body"
         />
 
-        <button type="submit" className="login-form-button">
+      <button type="submit" className="butt">
           create article
         </button>
       </form>

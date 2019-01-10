@@ -19,3 +19,14 @@
 .baggy{
   border: solid white 2px;
 }
+
+.artpic{
+  height: 350px;
+  width: 700px;
+}
+.createarticle {
+  margin: 0 auto;
+}
+.createarticleform {
+  margin: 0 auto;
+}

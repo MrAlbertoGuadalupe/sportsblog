@@ -1,5 +1,5 @@
 import React from "react";
-// import { Form, Icon, Input, Button, Checkbox } from "antd";
+
 
 export default function EditArticle(props) {
 
@@ -10,7 +10,7 @@ export default function EditArticle(props) {
           props.editPost(props.article.id);
         }}>
         <input
-          prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+
           placeholder="Title"
           onChange={props.handleEditChange}
           butt = {props.currentEditId}
@@ -20,16 +20,16 @@ export default function EditArticle(props) {
 
         />
 
-        <input
-          prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+      <input
+          
           placeholder="Body"
           value={props.editBody}
           onChange={props.handleEditChange}
           name="body"
         />
 
-        <button type="submit" className="login-form-button"
-          
+      <button type="submit"
+
           >
           Edit article
         </button>
