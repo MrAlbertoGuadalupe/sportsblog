@@ -4,27 +4,27 @@ import React from "react";
 export default function CreateComment(props) {
   return (
     <div>
-      <Form className="login-form" onSubmit={props.createComment}>
-        <Input
+      <form className="login-form" onSubmit={props.createComment}>
+        <input
           prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Title"
           onChange={props.handleCommentChange}
-          value={props.ecommenttitle}
+          value={props.newcommenttitle}
           name="title"
         />
 
-        <Input
+        <input
           prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Body"
-          value={props.ecommentbody}
+          value={props.newcommentbody}
           onChange={props.handleCommentChange}
           name="body"
         />
 
-        <Button type="submit" className="login-form-button">
+        <button type="submit" className="login-form-button">
           create comment
-        </Button>
-      </Form>
+        </button>
+      </form>
     </div>
   );
 }

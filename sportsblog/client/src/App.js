@@ -94,7 +94,7 @@ class App extends Component {
     const decoded = jwt_decode(token);
     console.log("clicked create comment");
     const request = axios.create(
-      `/posts/${decoded.sub}/comments`,
+      `/posts/1/comments`,
       { post: this.state.comments },
       {
         headers: {
@@ -239,8 +239,8 @@ class App extends Component {
   handleCommentChange(e, id) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      editcomment: {
-        ...prevState.editcomment,
+      newcomment: {
+        ...prevState.newcomment,
         [name]: value
       }
     }));
@@ -308,12 +308,15 @@ class App extends Component {
             createbody={this.state.newarticle.body}
             editTitle={this.state.editarticle.title}
             editBody={this.state.editarticle.body}
+            newcommenttitle={this.state.newcomment.title}
+            newcommentbody={this.state.newcomment.body}
             editimgurl={this.state.editarticle.img_url}
             createPost={this.createPost}
             currentEditId={this.state.editarticle.currentTitleEditId}
             toggleState={this.toggleState}
             editID={this.state.editID}
             holdcommentdata ={this.state.post.comments}
+            createComment = {this.createComment}
           />
         );
     }

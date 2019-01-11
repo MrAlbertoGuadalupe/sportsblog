@@ -4,6 +4,7 @@ import EditArticle from "./editarticle.js";
 import Comm from "./comments.js";
 import CommentList from "./commentlist.js"
 
+
 import "./articles.css";
 
 export default function Articles(props) {
@@ -45,6 +46,26 @@ onClick={() => {
 >
 Edit button
 </button>
+<form onSubmit={props.createComment}>
+<input
+  prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+  placeholder="comment title"
+  onChange={props.handleCommentChange}
+  value={props.newcommenttitle}
+  name="title"
+/>
+
+<input
+  prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+  placeholder="comment body"
+  value={props.newcommentbody}
+  onChange={props.handleCommentChange}
+  name="body"
+/>
+<button type="submit">
+  send your comment
+</button>
+</form>
 <CommentList
   holdcommentdata = {props.holdcommentdata}/>
 </div>
