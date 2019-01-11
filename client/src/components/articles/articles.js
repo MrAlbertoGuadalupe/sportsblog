@@ -74,9 +74,9 @@ Edit button
   </form>
 </div>
 
+<p>{index.title}</p>
+<p>{index.body}</p>
 
-<CommentList
-  holdcommentdata = {props.holdcommentdata}/>
 </div>
 
 )}
@@ -95,3 +95,7 @@ Edit button
     <div>loading</div>
   );
 }
+
+
+// <CommentList
+  // holdcommentdata = {props.holdcommentdata}/>
