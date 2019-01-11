@@ -1,5 +1,6 @@
 import React from "react";
 import CreateArticle from "./createarticle.js";
+import CreateComment from "./createcomment.js";
 import EditArticle from "./editarticle.js";
 import Comm from "./comments.js";
 import CommentList from "./commentlist.js"
@@ -20,7 +21,7 @@ export default function Articles(props) {
 
               <EditArticle
                 article={index}
-                editPost={()=>props.editPost()}
+                editPost={props.editPost}
                 handleEditChange={props.handleEditChange}
                 editBody={props.editBody}
                 editTitle={props.editTitle}
@@ -28,6 +29,7 @@ export default function Articles(props) {
                 editimgurl={props.editimgurl}
                 val={index.id}
               />
+
 
 </div> : (
   <div>
@@ -48,35 +50,31 @@ onClick={() => {
 >
 Edit button
 </button>
-<button
-type="submit"
-value={index.id}
-onClick={() => {
-  props.toggleState(index.id)
-}}
->
-Post a comment
-</button>
-<form onSubmit={props.createComment}>
-<input
-  prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-  placeholder="comment title"
-  onChange={props.handleCommentChange}
-  value={props.newcommenttitle}
-  name="title"
-/>
+<div>
+  <form className="login-form" id={index.id} onSubmit={props.createComment}>
+    <input
+      prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+      placeholder="Title"
+      onChange={props.handleCommentChange}
+      value={props.newcommenttitle}
+      name="title"
+    />
 
-<input
-  prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-  placeholder="comment body"
-  value={props.newcommentbody}
-  onChange={props.handleCommentChange}
-  name="body"
-/>
-<button type="submit">
-  send your comment
-</button>
-</form>
+    <input
+      prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+      placeholder="Body"
+      value={props.newcommentbody}
+      onChange={props.handleCommentChange}
+      name="body"
+    />
+
+  <button type="submit" className="login-form-button">
+      create comment
+    </button>
+  </form>
+</div>
+
+
 <CommentList
   holdcommentdata = {props.holdcommentdata}/>
 </div>

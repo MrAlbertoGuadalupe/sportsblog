@@ -157,14 +157,17 @@ class App extends Component {
       }
     }));
   }
-  async createComment(e) {
+  async createComment(e,id) {
     e.preventDefault();
+    const butts = e.currentTarget.id
     console.log("create comment clicked");
     console.log(this.state.editcomment);
+    console.log('this is e', e.currentTarget.id)
+    console.log('this is id',id)
     const token = localStorage.getItem("token");
 
     const request = await axios.post(
-      `api/posts/1/comments/`,
+      `api/posts/${butts}/comments/`,
       { comment: {"body": this.state.editcomment.body, "title": this.state.editcomment.title} },
       {
         headers: {
@@ -208,16 +211,6 @@ class App extends Component {
   //   }));
   // }
 
-  dimaFunction(e) {
-    e.preventDefault();
-    // const newcomment = this.getComments();
-    this.setState(prevState => ({
-      newcomment: {
-        ...prevState.newcomment
-      }
-    }));
-    this.createComment(this.state.newcomment);
-  }
 
   async userSubmitted(userInfo) {
     await axios.post(`/api/users`, { user: userInfo });
@@ -381,6 +374,11 @@ class App extends Component {
             toggleState={this.toggleState}
             editID={this.state.editID}
             holdcommentdata={this.state.post.comments}
+            handleCommentChange={this.handleCommentChange}
+            holdcommentdata={this.state.post.comments}
+            newcommenttitle={this.state.editcomment.title}
+            newcommentbody={this.state.editcomment.body}
+            createComment={this.createComment}
           />
         );
     }
@@ -393,13 +391,7 @@ class App extends Component {
           userisloggedin={this.state.userisloggedin}
         />
 
-        <CreateComment
-          handleCommentChange={this.handleCommentChange}
-          holdcommentdata={this.state.post.comments}
-          newcommenttitle={this.state.editcomment.title}
-          newcommentbody={this.state.editcomment.body}
-          createComment={this.createComment}
-        />
+
         {butt}
       </div>
     );
