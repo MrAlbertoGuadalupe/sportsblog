@@ -17,9 +17,10 @@ export default function Articles(props) {
           <h3 className="body">{index.body}</h3>
           {props.editID === index.id ?
             <div>
+
               <EditArticle
                 article={index}
-                editPost={props.editPost}
+                editPost={()=>props.editPost()}
                 handleEditChange={props.handleEditChange}
                 editBody={props.editBody}
                 editTitle={props.editTitle}
@@ -27,6 +28,7 @@ export default function Articles(props) {
                 editimgurl={props.editimgurl}
                 val={index.id}
               />
+
 </div> : (
   <div>
   <button
@@ -45,6 +47,15 @@ onClick={() => {
 }}
 >
 Edit button
+</button>
+<button
+type="submit"
+value={index.id}
+onClick={() => {
+  props.toggleState(index.id)
+}}
+>
+Post a comment
 </button>
 <form onSubmit={props.createComment}>
 <input

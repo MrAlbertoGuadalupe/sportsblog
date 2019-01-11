@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import NavBar from "./components/nav/navbar";
 import CreateArticle from "./components/articles/createarticle";
+import CreateComment from "./components/articles/createcomment";
 import CommentList from "./components/articles/commentlist";
 import LoginView from "./components/login/loginview";
 import LogoutView from "./components/login/logoutview";
@@ -88,34 +89,40 @@ class App extends Component {
     const resp = await axios.get("/api/users");
   }
 
-  async createComment(e) {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    const decoded = jwt_decode(token);
-    console.log("clicked create comment");
-    const request = axios.create(
-      `/api/posts/1/comments`,
-      { post: this.state.comments },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
-    const newcomment = this.getComments;
-    this.setState(prevState => ({
-      newcomment: {
-        ...prevState.newcomment,
-        newcomment
-      }
-    }));
-  }
+  // async createComment(e) {
+  //   e.preventDefault();
+  //   const token = localStorage.getItem("token");
+  //   const decoded = jwt_decode(token);
+  //   console.log("clicked create comment");
+  //   const request = axios.create(
+  //     `/api/posts/1/comments`,
+  //     { post: this.state.newcomment },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     }
+  //   );
+  //   const newcomment = this.getComments;
+  //   this.setState(prevState => ({
+  //     newcomment: {
+  //       ...prevState.newcomment,
+  //       newcomment
+  //     }
+  //   }));
+  // }
 
   toggleState(id) {
     this.setState({
       editID: id
     });
-    console.log("toggle clicked ", id);
+    console.log("edit article toggle ", id);
+  }
+  toggleStateTwo(id) {
+    this.setState({
+      editID: id
+    });
+    console.log("create comment toggle ", id);
   }
 
   async deletePost(e) {
@@ -150,6 +157,67 @@ class App extends Component {
       }
     }));
   }
+  async createComment(e) {
+    e.preventDefault();
+    console.log("create comment clicked");
+    console.log(this.state.editcomment);
+    const token = localStorage.getItem("token");
+
+    const request = await axios.post(
+      `api/posts/1/comments/`,
+      { comment: {"body": this.state.editcomment.body, "title": this.state.editcomment.title} },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    console.log(request);
+    console.log(token);
+    // const newcomment = this.getComments;
+    this.setState({
+      newcomment: this.state.editcomment
+
+    })
+  }
+
+
+  // async createComment(e) {
+  //   e.preventDefault();
+  //   console.log("create comment clicked");
+  //   console.log(this.state.newcomment);
+  //   const token = localStorage.getItem("token");
+  //
+  //   const request = axios.post(
+  //     `api/posts/1/comments/`,
+  //     { post: this.state.newcomment },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     }
+  //   );
+  //   console.log(request);
+  //   console.log(token);
+  //   const newcomment = this.getComments;
+  //   this.setState(prevState => ({
+  //     newcomment: {
+  //       ...prevState.newcomment,
+  //       newcomment
+  //     }
+  //   }));
+  // }
+
+  dimaFunction(e) {
+    e.preventDefault();
+    // const newcomment = this.getComments();
+    this.setState(prevState => ({
+      newcomment: {
+        ...prevState.newcomment
+      }
+    }));
+    this.createComment(this.state.newcomment);
+  }
 
   async userSubmitted(userInfo) {
     await axios.post(`/api/users`, { user: userInfo });
@@ -171,7 +239,6 @@ class App extends Component {
   }
 
   async editPost(id) {
-    console.log("ran edit post");
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.put(
@@ -195,7 +262,6 @@ class App extends Component {
   componentDidMount() {
     this.getBoth();
     this.getUsers();
-
   }
 
   //login handleChange
@@ -239,8 +305,8 @@ class App extends Component {
   handleCommentChange(e, id) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      newcomment: {
-        ...prevState.newcomment,
+      editcomment: {
+        ...prevState.editcomment,
         [name]: value
       }
     }));
@@ -265,8 +331,6 @@ class App extends Component {
       }
     }));
   }
-
-
 
   async setView(view) {
     this.setState({ curView: view });
@@ -304,6 +368,7 @@ class App extends Component {
             editPost={this.editPost}
             handleEditChange={this.handleEditChange}
             handleCreateChange={this.handleCreateChange}
+            handleCommentChange={this.handleCommentChange}
             createtitle={this.state.newarticle.title}
             createbody={this.state.newarticle.body}
             editTitle={this.state.editarticle.title}
@@ -315,17 +380,26 @@ class App extends Component {
             currentEditId={this.state.editarticle.currentTitleEditId}
             toggleState={this.toggleState}
             editID={this.state.editID}
-            holdcommentdata ={this.state.post.comments}
-            createComment = {this.createComment}
+            holdcommentdata={this.state.post.comments}
           />
         );
     }
 
     return (
       <div className="App">
-        <NavBar handleViewChange={this.setView} logout={this.logout} userisloggedin={this.state.userisloggedin}/>
+        <NavBar
+          handleViewChange={this.setView}
+          logout={this.logout}
+          userisloggedin={this.state.userisloggedin}
+        />
 
-
+        <CreateComment
+          handleCommentChange={this.handleCommentChange}
+          holdcommentdata={this.state.post.comments}
+          newcommenttitle={this.state.editcomment.title}
+          newcommentbody={this.state.editcomment.body}
+          createComment={this.createComment}
+        />
         {butt}
       </div>
     );
