@@ -67,14 +67,14 @@ class App extends Component {
   }
 
   async getPosts() {
-    const resp = await axios.get("/posts");
+    const resp = await axios.get("/api/posts");
   }
   async getComments() {
-    const resp = await axios.get("/posts/1/comments");
+    const resp = await axios.get("/api/posts/1/comments");
   }
   async getBoth() {
-    const resptwo = await axios.get("/posts/1/comments");
-    const resp = await axios.get("posts");
+    const resptwo = await axios.get("/api/posts/1/comments");
+    const resp = await axios.get("/api/posts");
     this.setState({
       post: {
         articles: resp.data,
@@ -85,7 +85,7 @@ class App extends Component {
   }
 
   async getUsers() {
-    const resp = await axios.get("/users");
+    const resp = await axios.get("/api/users");
   }
 
   async createComment(e) {
@@ -94,7 +94,7 @@ class App extends Component {
     const decoded = jwt_decode(token);
     console.log("clicked create comment");
     const request = axios.create(
-      `/posts/1/comments`,
+      `/api/posts/1/comments`,
       { post: this.state.comments },
       {
         headers: {
@@ -122,7 +122,7 @@ class App extends Component {
     const data = e.currentTarget.value;
     const token = localStorage.getItem("token");
 
-    const request = axios.delete(`/posts/${data}`, {
+    const request = axios.delete(`/api/posts/${data}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -134,7 +134,7 @@ class App extends Component {
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.post(
-      `/users/${decoded.sub}/posts`,
+      `/api/users/${decoded.sub}/posts`,
       { post: this.state.newarticle },
       {
         headers: {
@@ -152,7 +152,7 @@ class App extends Component {
   }
 
   async userSubmitted(userInfo) {
-    await axios.post(`/users`, { user: userInfo });
+    await axios.post(`/api/users`, { user: userInfo });
   }
 
   registerUser(e) {
@@ -175,7 +175,7 @@ class App extends Component {
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.put(
-      `/users/${decoded.sub}/posts/${id}`,
+      `/api/users/${decoded.sub}/posts/${id}`,
       { post: this.state.editarticle },
       {
         headers: {
