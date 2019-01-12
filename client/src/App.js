@@ -33,8 +33,8 @@ class App extends Component {
         body: ""
       },
       newcomment: {
-        title: "",
-        body: ""
+        commenttitle: "",
+        commentbody: ""
       },
       editarticle: {
         title: "",
@@ -42,8 +42,8 @@ class App extends Component {
         img_url: ""
       },
       editcomment: {
-        title: "",
-        body: ""
+        commenttitle: "",
+        commentbody: ""
       },
       userisloggedin: false,
       curView: "",
@@ -163,12 +163,12 @@ class App extends Component {
     console.log("create comment clicked");
     console.log(this.state.editcomment);
     console.log('this is e', e.currentTarget.id)
-    console.log('this is id',id)
+    console.log(this.state.index)
     const token = localStorage.getItem("token");
 
     const request = await axios.post(
       `api/posts/${butts}/comments/`,
-      { comment: {"body": this.state.editcomment.body, "title": this.state.editcomment.title} },
+      { comment: {"commentbody": this.state.editcomment.commentbody, "commenttitle": this.state.editcomment.commenttitle} },
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -366,8 +366,6 @@ class App extends Component {
             createbody={this.state.newarticle.body}
             editTitle={this.state.editarticle.title}
             editBody={this.state.editarticle.body}
-            newcommenttitle={this.state.newcomment.title}
-            newcommentbody={this.state.newcomment.body}
             editimgurl={this.state.editarticle.img_url}
             createPost={this.createPost}
             currentEditId={this.state.editarticle.currentTitleEditId}
@@ -375,9 +373,8 @@ class App extends Component {
             editID={this.state.editID}
             holdcommentdata={this.state.post.comments}
             handleCommentChange={this.handleCommentChange}
-            holdcommentdata={this.state.post.comments}
-            newcommenttitle={this.state.editcomment.title}
-            newcommentbody={this.state.editcomment.body}
+            newcommenttitle={this.state.editcomment.commenttitle}
+            newcommentbody={this.state.editcomment.commentbody}
             createComment={this.createComment}
           />
         );
@@ -426,5 +423,6 @@ export default App;
 //   commentbody={this.state.newcomment.body}
 //   ecommenttitle={this.state.editcommenttitle}
 //   ecommentbody={this.state.editcomment.body}
-//   createComment={this.createComment}
-// />
+//   createComment={this.cre
+// newcommenttitle={this.state.newcomment.commenttitle}
+// newcommentbody={this.state.newcomment.commentbody}

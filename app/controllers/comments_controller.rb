@@ -9,7 +9,8 @@ puts params.inspect
 if !(params[:posts_id].present?)
   @comments = Comment.all
 else
-    @comments = Comment.where(posts_id: params[:posts_id])
+  @comments = Comment.where(posts_id: params[:posts_id])
+  puts @comments.inspect
   end
   render json: @comments
 end
@@ -53,6 +54,6 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:title, :body,:user_id, :posts_id)
+      params.require(:comment).permit(:commenttitle, :commentbody,:user_id, :posts_id)
     end
 end

@@ -29,6 +29,29 @@ export default function Articles(props) {
                 editimgurl={props.editimgurl}
                 val={index.id}
               />
+              <div>
+                <form className="login-form" id={index.id} onSubmit={props.createComment}>
+                  <input
+
+                    placeholder="Comment Title"
+                    onChange={props.handleCommentChange}
+                    value={props.newcommenttitle}
+                    name="commenttitle"
+                  />
+
+                  <input
+
+                    placeholder="Comment Body"
+                    value={props.newcommentbody}
+                    onChange={props.handleCommentChange}
+                    name="commentbody"
+                  />
+
+                <button type="submit" className="login-form-button">
+                    create comment
+                  </button>
+                </form>
+              </div>
 
 
 </div> : (
@@ -50,32 +73,20 @@ onClick={() => {
 >
 Edit button
 </button>
-<div>
-  <form className="login-form" id={index.id} onSubmit={props.createComment}>
-    <input
-      prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-      placeholder="Title"
-      onChange={props.handleCommentChange}
-      value={props.newcommenttitle}
-      name="title"
-    />
+<button
+type="submit"
+value={index.id}
+onClick={() => {
+  props.toggleState(index.id)
+}}
+>
+Create Comment
+</button>
+{console.log(index)}
 
-    <input
-      prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-      placeholder="Body"
-      value={props.newcommentbody}
-      onChange={props.handleCommentChange}
-      name="body"
-    />
+<CommentList
+  holdcommentdata = {index.comments}/>
 
-  <button type="submit" className="login-form-button">
-      create comment
-    </button>
-  </form>
-</div>
-
-<p>{index.title}</p>
-<p>{index.body}</p>
 
 </div>
 
@@ -96,6 +107,6 @@ Edit button
   );
 }
 
-
+//
 // <CommentList
-  // holdcommentdata = {props.holdcommentdata}/>
+//   holdcommentdata = {props.holdcommentdata}/>

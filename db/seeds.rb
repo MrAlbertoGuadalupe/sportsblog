@@ -41,16 +41,16 @@ Remember when we thought the top free agent would make his decision shortly afte
    }
 ])
 
-comments = Comment.create!([
- {
-   title: 'First Comment',
-   body: 'This is the first comment',
-   post_id: 1,
-   user_id: 1,
- }
-
-
-])
+# comments = Comment.create!([
+#  {
+#    commenttitle: 'First Comment',
+#    commentbody: 'This is the first comment',
+#    post_id: 1,
+#    user_id: 1,
+#  }
+#
+#
+# ])
 
 #  users.each do |user|
 #   3.times do
