@@ -18,22 +18,22 @@ Ruby on Rails
 ## Front-End Construction
 React
 
-##Navbar
+## Navbar
 Home(Articles View), Login/Logout options,
 
-##MVP
+## MVP
 a sports blog where sports articles are posted and users can leave comments on the articles.
 all people can view articles (no auth required)
 but to post a comment you will need to be logged in
 to post an article, update an article or remove an article, you will need to be logged in and authorized
 
 
-##Models
+## Models
 Users (Admin access level and basic user access level)  
 Articles  
 Comments  
 
-##Technologies Used
+## Technologies Used
 React  
 Ruby on Rails  
 Ant Design Library  
