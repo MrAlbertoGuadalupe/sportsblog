@@ -34,15 +34,15 @@ Articles
 Comments  
 
 ##Technologies Used
-React
-Ruby on Rails
-Ant Design Library
-React-tooltip
-Heroku Deployment
-JWT decode
-JWT web token
-Axios
-Local Storage
+React  
+Ruby on Rails  
+Ant Design Library  
+React-tooltip  
+Heroku Deployment  
+JWT decode  
+JWT web token  
+Axios  
+Local Storage  
 
 ## Post MVP
 Search function  
