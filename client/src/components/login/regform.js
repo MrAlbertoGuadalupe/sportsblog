@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import "./form.css";
 
-function RegisterForm(props) {
+export default function RegForm(props) {
   return (
     <Form className="login-form" onSubmit={props.registerUser}>
       <h2>Register</h2>
@@ -11,26 +11,27 @@ function RegisterForm(props) {
         placeholder="Username"
         name="email"
         autocomplete="email"
-        value={props.email}
-        onChange={props.typingRegister}
+        value={props.register.email}
+        onChange={props.handleRegisterChange}
       />
-      <br />
+
 
       <Input
         placeholder="Password"
         name="password"
         autocomplete="password"
-        value={props.password}
-        onChange={props.typingRegister}
+        type="password"
+        value={props.register.password}
+        onChange={props.handleRegisterChange}
       />
 
     <Input
-        type="password"
-        autocomplete="password"
         placeholder="Enter Password Again"
         name="password_confirmation"
-        value={props.password_confirmation}
-        onChange={props.typingRegister}
+        autocomplete="password"
+        type="password"
+        value={props.register.password_confirmation}
+        onChange={props.handleRegisterChange}
       />
     <Button type="primary" htmlType="submit" className="login-form-button">
         Register
@@ -38,5 +39,3 @@ function RegisterForm(props) {
     </Form>
   );
 }
-
-export default RegisterForm;

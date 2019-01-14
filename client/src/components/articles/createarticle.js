@@ -25,7 +25,6 @@ export default function CreateArticle(props) {
             placeholder="Insert Image Link"
             value={props.createimgurl}
             onChange={props.handleCreateChange}
-            src={props.createimgurl}
             name="img_url"
           />
 

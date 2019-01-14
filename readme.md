@@ -12,15 +12,14 @@ npm i
 rails start  
 
 ### Back-End Construction
-Ruby on Rails (Hope)  
-Express(Backup)  
+Ruby on Rails  
+
 
 ## Front-End Construction
-React Native (Hope)  
-React(Backup)  
+React
 
 ##Navbar
-Home
+Home(Articles View), Login/Logout options,
 
 ##MVP
 a sports blog where sports articles are posted and users can leave comments on the articles.
@@ -35,8 +34,15 @@ Articles
 Comments  
 
 ##Technologies Used
-React Native(goal)/React(backup)  
-Ruby on Rails(goal)/Express(backup)  
+React
+Ruby on Rails
+Ant Design Library
+React-tooltip
+Heroku Deployment
+JWT decode
+JWT web token
+Axios
+Local Storage
 
 ## Post MVP
 Search function  

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
-import NavBar from "./components/nav/navbar";
 import NavBarTemplate from "./components/nav/navbartemplate";
 import CreateArticle from "./components/articles/createarticle";
 import CreateComment from "./components/articles/createcomment";
@@ -22,6 +21,11 @@ class App extends Component {
         password: "",
         password_confirmation: ""
       },
+      newuser: {
+        email: "",
+        password: "",
+        password_confirmation: ""
+      },
       login: {
         email: "",
         password: ""
@@ -32,7 +36,8 @@ class App extends Component {
       },
       newarticle: {
         title: "",
-        body: ""
+        body: "",
+        img_url: ""
       },
       newcomment: {
         commenttitle: "",
@@ -55,15 +60,14 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleCreateChange = this.handleCreateChange.bind(this);
     this.handleEditChange = this.handleEditChange.bind(this);
+    this.handleRegisterChange = this.handleRegisterChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.setView = this.setView.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.createPost = this.createPost.bind(this);
     this.toggleState = this.toggleState.bind(this);
-    this.userSubmitted = this.userSubmitted.bind(this);
     this.registerUser = this.registerUser.bind(this);
-    this.typingRegister = this.typingRegister.bind(this);
     this.logout = this.logout.bind(this);
     this.createComment = this.createComment.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -139,7 +143,9 @@ class App extends Component {
   }
 
   async createPost(e) {
-    // e.preventDefault();
+    e.preventDefault();
+
+    console.log(this.state.newarticle);
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.post(
@@ -159,18 +165,19 @@ class App extends Component {
       }
     }));
   }
-  async createComment(e,id) {
+  async createComment(e, id) {
     // e.preventDefault();
-    const butts = e.currentTarget.id
-    console.log("create comment clicked");
-    console.log(this.state.editcomment);
-    console.log('this is e', e.currentTarget.id)
-    console.log(this.state.index)
+    const butts = e.currentTarget.id;
     const token = localStorage.getItem("token");
 
     const request = await axios.post(
       `api/posts/${butts}/comments/`,
-      { comment: {"commentbody": this.state.editcomment.commentbody, "commenttitle": this.state.editcomment.commenttitle} },
+      {
+        comment: {
+          commentbody: this.state.editcomment.commentbody,
+          commenttitle: this.state.editcomment.commenttitle
+        }
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -182,55 +189,7 @@ class App extends Component {
     // const newcomment = this.getComments;
     this.setState({
       newcomment: this.state.editcomment
-
-    })
-  }
-
-
-  // async createComment(e) {
-  //   e.preventDefault();
-  //   console.log("create comment clicked");
-  //   console.log(this.state.newcomment);
-  //   const token = localStorage.getItem("token");
-  //
-  //   const request = axios.post(
-  //     `api/posts/1/comments/`,
-  //     { post: this.state.newcomment },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     }
-  //   );
-  //   console.log(request);
-  //   console.log(token);
-  //   const newcomment = this.getComments;
-  //   this.setState(prevState => ({
-  //     newcomment: {
-  //       ...prevState.newcomment,
-  //       newcomment
-  //     }
-  //   }));
-  // }
-
-
-  async userSubmitted(userInfo) {
-    await axios.post(`/api/users`, { user: userInfo });
-  }
-
-  registerUser(e) {
-    e.preventDefault();
-    this.userSubmitted(this.state.user);
-  }
-
-  typingRegister(e) {
-    const { name, value } = e.target;
-    this.setState(prevState => ({
-      user: {
-        ...prevState.user,
-        [name]: value
-      }
-    }));
+    });
   }
 
   async editPost(id) {
@@ -279,6 +238,23 @@ class App extends Component {
     });
   }
 
+  async registerUser(e) {
+    e.preventDefault();
+    const data = await axios.post(
+      `api/users`,
+      {
+        user: {
+          email: this.state.newuser.email,
+          password: this.state.newuser.password,
+          password_confirmation: this.state.newuser.password_confirmation
+        }
+      })
+    const users = this.getUsers;
+      this.setState({
+        newuser: this.state.newuser
+      });
+}
+
   async logout() {
     console.log("logged out");
     localStorage.removeItem("token");
@@ -320,8 +296,8 @@ class App extends Component {
   handleRegisterChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      user: {
-        ...prevState.user,
+      newuser: {
+        ...prevState.newuser,
         [name]: value
       }
     }));
@@ -330,6 +306,7 @@ class App extends Component {
   async setView(view) {
     this.setState({ curView: view });
   }
+
 
   render() {
     const view = this.state.curView;
@@ -343,9 +320,10 @@ class App extends Component {
             handleChange={this.handleChange}
             handleLogin={this.handleLogin}
             login={this.state.login}
+            register={this.state.newuser}
             userSubmitted={this.userSubmitted}
             registerUser={this.registerUser}
-            typingRegister={this.typingRegister}
+            handleRegisterChange={this.handleRegisterChange}
           />
         );
         break;
@@ -385,13 +363,11 @@ class App extends Component {
 
     return (
       <div className="App">
-
-      <NavBarTemplate
-        handleViewChange={this.setView}
-        logout={this.logout}
-        userisloggedin={this.state.userisloggedin}
+        <NavBarTemplate
+          handleViewChange={this.setView}
+          logout={this.logout}
+          userisloggedin={this.state.userisloggedin}
         />
-
 
         {butt}
       </div>
@@ -400,26 +376,7 @@ class App extends Component {
 }
 
 export default App;
-// async registerUser(e) {
-//   e.preventDefault();
-//   const data = await axios.post('/users')
-//   console.log(data)
-//   const users = this.getUsers;
-//   this.setState(prevState => ({
-//     login: {
-//       ...prevState.user,
-//       users
-//     }
-//   }));
-// }
-//console.log('clicked register');
-//     const user= this.getUsers;
-//     this.setState(prevState => ({
-//       user: {
-//         ...prevState.user,
-//         user
-//       }
-// }));
+
 
 // <CreateComment
 //   handleCommentChange={this.handleCommentChange}

@@ -95,7 +95,7 @@ Create Comment
         createbody={props.createbody}
         createPost={props.createPost}
         createimgurl={props.createimgurl}
-        src ={props.createimgurl}
+  
       />
     </div>
   ) : (

@@ -9,7 +9,9 @@ export default function NavBarTemplate(props) {
   return (
 
       <Menu
+
       style={{ background: "#252D39", color: "white"}}
+
 
 
       // onClick={this.handleClick}
@@ -17,17 +19,18 @@ export default function NavBarTemplate(props) {
         mode="horizontal"
       >
 
-        <a><img src={ require('../media/logo.webp')} className = "logohead"  style={{ height: "80px" }} alt={'home'}
+        <a className = "logohead" ><img src={ require('../media/logo.webp')}  style={{ height: "80px" }} alt={'home'}
           onClick={() => props.handleViewChange('default')} /></a>
+          
 
         <Menu.Item>
-        <Menu.Item>
+        <Menu.Item onClick={() => props.handleViewChange('default')}>
          <Icon
           className = "home"
           type="home"
-          style={{ fontSize: "30px", color: "white" }}
+          style={{ fontSize: "20px", color: "white" }}
 
-          onClick={() => props.handleViewChange('default')}
+
 
         />
         Home
@@ -43,13 +46,13 @@ export default function NavBarTemplate(props) {
             <Menu.Item key="setting:4">Option 4</Menu.Item>
           </MenuItemGroup>
         </SubMenu>
-        <Menu.Item>
+        <Menu.Item onClick={() => props.handleViewChange('Login')}>
          <Icon
           className = "profileicon"
           type="user"
-          style={{ fontSize: "30px", color: "white" }}
+          style={{ fontSize: "20px", color: "white" }}
 
-          onClick={() => props.handleViewChange('Login')}
+
         />
         Login
         </Menu.Item>
@@ -59,13 +62,14 @@ export default function NavBarTemplate(props) {
           data-tip="React-tooltip"
           className = "profileicon"
           type="logout"
-          style={{ fontSize: "30px", color: "white" }}
+          style={{ fontSize: "20px", color: "white" }}
 
           onClick={() => props.logout()}
         />Logout
         </Menu.Item>
 
       </Menu>
+
     )
   }
   // onClick={this.handleClick}

@@ -15,7 +15,8 @@ export default function LoginView(props) {
       <RegForm
         userSubmitted={props.userSubmitted}
         registerUser={props.registerUser}
-        typingRegister={props.typingRegister}
+        handleRegisterChange={props.handleRegisterChange}
+        register={props.register}
       />
     </div>
   );
