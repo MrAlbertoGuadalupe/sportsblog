@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
 import NavBar from "./components/nav/navbar";
+import NavBarTemplate from "./components/nav/navbartemplate";
 import CreateArticle from "./components/articles/createarticle";
 import CreateComment from "./components/articles/createcomment";
 import CommentList from "./components/articles/commentlist";
+import CommentListTwo from "./components/articles/commentlisttwo";
 import LoginView from "./components/login/loginview";
 import LogoutView from "./components/login/logoutview";
 import Articles from "./components/articles/articles";
@@ -137,7 +139,7 @@ class App extends Component {
   }
 
   async createPost(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const request = axios.post(
@@ -158,7 +160,7 @@ class App extends Component {
     }));
   }
   async createComment(e,id) {
-    e.preventDefault();
+    // e.preventDefault();
     const butts = e.currentTarget.id
     console.log("create comment clicked");
     console.log(this.state.editcomment);
@@ -364,6 +366,7 @@ class App extends Component {
             handleCommentChange={this.handleCommentChange}
             createtitle={this.state.newarticle.title}
             createbody={this.state.newarticle.body}
+            createimgurl={this.state.newarticle.img_url}
             editTitle={this.state.editarticle.title}
             editBody={this.state.editarticle.body}
             editimgurl={this.state.editarticle.img_url}
@@ -382,10 +385,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <NavBar
-          handleViewChange={this.setView}
-          logout={this.logout}
-          userisloggedin={this.state.userisloggedin}
+
+      <NavBarTemplate
+        handleViewChange={this.setView}
+        logout={this.logout}
+        userisloggedin={this.state.userisloggedin}
         />
 
 
@@ -426,3 +430,8 @@ export default App;
 //   createComment={this.cre
 // newcommenttitle={this.state.newcomment.commenttitle}
 // newcommentbody={this.state.newcomment.commentbody}
+// <NavBar
+//   handleViewChange={this.setView}
+//   logout={this.logout}
+//   userisloggedin={this.state.userisloggedin}
+// />

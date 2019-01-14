@@ -7,9 +7,9 @@ export default function CommentList(props) {
     {props.holdcommentdata.map(index => (
                  <div className= "baggy" key={index}>
                    {console.log(index)}
-              <p>{index.commenttitle}</p>
-              <p>{index.commentbody}</p>
-              <p>{index.post_id}</p>
+
+              <h4>{index.commentbody}</h4>
+
 
             </div>
 

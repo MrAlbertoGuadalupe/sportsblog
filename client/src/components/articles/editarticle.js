@@ -1,15 +1,15 @@
 import React from "react";
-
+import { Comment, Button, Avatar, Form, List, Input } from "antd";
 
 export default function EditArticle(props) {
 
   return (
     <div>
-      <form className="login-form" onSubmit={(e) => {
+      <Form className="login-form" onSubmit={(e) => {
           e.preventDefault();
           props.editPost(props.article.id);
         }}>
-        <input
+        <Input
 
           placeholder="Title"
           onChange={props.handleEditChange}
@@ -20,15 +20,15 @@ export default function EditArticle(props) {
 
         />
 
-      <input
+      <Input
 
           placeholder="Body"
           value={props.editBody}
           onChange={props.handleEditChange}
           name="body"
         />
-        <input
-            placeholder="Img_Url"
+      <Input
+            placeholder="Enter Img Url"
             onChange={props.handleEditChange}
             name="img_url"
             value={props.editimgurl}
@@ -36,12 +36,12 @@ export default function EditArticle(props) {
             name="img_url"
           />
 
-      <button type="submit"
+        <Button type="primary" htmlType="submit" className="login-form-button">
 
-          >
+
           Edit article
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }

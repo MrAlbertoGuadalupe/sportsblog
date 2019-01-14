@@ -1,23 +1,31 @@
 @import "~antd/dist/antd.css";
-
+@import url('https://fonts.googleapis.com/css?family=Hind:700');
 
 .ant-comment-content-author-name > a {
   color: gray;
 }
 
 .title {
-  color: white
+  color: black;
+  font-family: 'Hind', sans-serif;
+  font-size: 2.5em;
 }
 
 .body {
-  color: white;
+  color: black;
 }
 
 .articleList{
   border: solid white 2px;
+  background: white;
+  color: black;
+  padding: 10px;
+  margin: 20px;
+
 }
 .baggy{
   border: solid white 2px;
+  color: black;
 }
 
 .artpic{

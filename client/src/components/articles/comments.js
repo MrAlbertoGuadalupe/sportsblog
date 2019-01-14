@@ -1,20 +1,20 @@
 import React from "react";
-
+import { Comment, Button, Avatar, Form, List, Input } from "antd";
 
 import "./articles.css";
 
 export default function Comm(props) {
 return (
   <div>
-  <button
-  type= "submit"
+  <Button type="primary" htmlType="submit" className="login-form-button"
+
   className = "butt"
   onClick = {props.createComment}
   >Add new comment
-</button>
-  <input placeholder="add a comment">
+</Button>
+  <Input placeholder="add a comment">
 
-  </input>
+  </Input>
   </div>
 )
 }

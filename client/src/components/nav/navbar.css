@@ -10,6 +10,8 @@
   align-content: flex-end;
 }
 .logohead {
-  
+
   align-content: flex-start;
+  border: solid pink 2px;
 }
+@import "~antd/dist/antd.css";

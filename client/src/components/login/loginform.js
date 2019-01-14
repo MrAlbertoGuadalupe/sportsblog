@@ -1,14 +1,14 @@
 import React from "react";
-// import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input, Button, Checkbox } from "antd";
 import "./form.css";
 
 export default function LoginForm(props) {
   return (
     <div>
-      <form className="login-form" onSubmit={props.handleLogin}>
+      <Form className="login-form" onSubmit={props.handleLogin}>
         <h2>Login</h2>
 
-        <input
+        <Input
           prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Username"
           onChange={props.handleChange}
@@ -17,7 +17,7 @@ export default function LoginForm(props) {
           autocomplete="email"
         />
 
-      <input
+      <Input
           prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           type="password"
           placeholder="Password"
@@ -27,10 +27,10 @@ export default function LoginForm(props) {
           value={props.login.password}
         />
 
-      <button type="submit" className="login-form-button">
+      <Button type="primary" htmlType="submit" className="login-form-button">
           Login
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }

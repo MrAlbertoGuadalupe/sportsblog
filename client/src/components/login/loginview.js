@@ -1,6 +1,7 @@
 import React from "react";
 import LoginForm from "./loginform.js";
 import RegForm from "./regform.js";
+import { Form, Icon, Input, Button, Checkbox } from "antd";
 import "./login.css";
 
 export default function LoginView(props) {

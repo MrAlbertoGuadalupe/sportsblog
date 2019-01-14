@@ -4,8 +4,8 @@ import CreateComment from "./createcomment.js";
 import EditArticle from "./editarticle.js";
 import Comm from "./comments.js";
 import CommentList from "./commentlist.js"
-
-
+import CommentListTwo from "./commentlisttwo";
+import { Comment, Button, Avatar, Form, List, Input } from "antd";
 import "./articles.css";
 
 export default function Articles(props) {
@@ -30,61 +30,55 @@ export default function Articles(props) {
                 val={index.id}
               />
               <div>
-                <form className="login-form" id={index.id} onSubmit={props.createComment}>
-                  <input
+                <Form className="login-form" id={index.id} onSubmit={props.createComment}>
 
-                    placeholder="Comment Title"
-                    onChange={props.handleCommentChange}
-                    value={props.newcommenttitle}
-                    name="commenttitle"
-                  />
 
-                  <input
+                <Input
 
-                    placeholder="Comment Body"
+                    placeholder="Tell us what you think"
                     value={props.newcommentbody}
                     onChange={props.handleCommentChange}
                     name="commentbody"
                   />
 
-                <button type="submit" className="login-form-button">
+                <Button type="primary" htmlType="submit" className="login-form-Button">
                     create comment
-                  </button>
-                </form>
+                  </Button>
+                </Form>
               </div>
 
 
 </div> : (
   <div>
-  <button
-  type="submit"
+  <Button type="primary" htmlType="submit" className="login-form-Button"
+
   value={index.id}
   onClick={props.deletePost}
 >
-  Delete button
-</button>
+  Delete Button
+</Button>
 
-<button
-type="submit"
+<Button type="primary" htmlType="submit" className="login-form-Button"
+
 value={index.id}
 onClick={() => {
   props.toggleState(index.id)
 }}
 >
-Edit button
-</button>
-<button
-type="submit"
+Edit Button
+</Button>
+<Button type="primary" htmlType="submit" className="login-form-Button"
+
 value={index.id}
 onClick={() => {
   props.toggleState(index.id)
 }}
 >
 Create Comment
-</button>
+</Button>
 {console.log(index)}
 
-<CommentList
+<CommentListTwo
   holdcommentdata = {index.comments}/>
 
 
@@ -100,6 +94,8 @@ Create Comment
         createtitle={props.createtitle}
         createbody={props.createbody}
         createPost={props.createPost}
+        createimgurl={props.createimgurl}
+        src ={props.createimgurl}
       />
     </div>
   ) : (

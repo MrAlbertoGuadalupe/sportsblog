@@ -1,13 +1,13 @@
 import React from "react";
-
+import { Form, Icon, Input, Button, Checkbox } from "antd";
 import "./form.css";
 
 function RegisterForm(props) {
   return (
-    <form className="login-form" onSubmit={props.registerUser}>
+    <Form className="login-form" onSubmit={props.registerUser}>
       <h2>Register</h2>
 
-      <input
+      <Input
         placeholder="Username"
         name="email"
         autocomplete="email"
@@ -16,7 +16,7 @@ function RegisterForm(props) {
       />
       <br />
 
-      <input
+      <Input
         placeholder="Password"
         name="password"
         autocomplete="password"
@@ -24,7 +24,7 @@ function RegisterForm(props) {
         onChange={props.typingRegister}
       />
 
-    <input
+    <Input
         type="password"
         autocomplete="password"
         placeholder="Enter Password Again"
@@ -32,10 +32,10 @@ function RegisterForm(props) {
         value={props.password_confirmation}
         onChange={props.typingRegister}
       />
-    <button type="submit" className="login-form-button">
+    <Button type="primary" htmlType="submit" className="login-form-button">
         Register
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 

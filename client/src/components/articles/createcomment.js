@@ -1,19 +1,13 @@
 import React from "react";
-
+import { Comment, Button, Avatar, Form, List, Input } from "antd";
 
 export default function CreateComment(props) {
   return (
     <div>
-      <form className="login-form" onSubmit={props.createComment}>
-        <input
-          prefix={<icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-          placeholder="Title"
-          onChange={props.handleCommentChange}
-          value={props.newcommenttitle}
-          name="title"
-        />
+      <Form className="login-form" onSubmit={props.createComment}>
+        
 
-        <input
+      <Input
           prefix={<icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Body"
           value={props.newcommentbody}
@@ -21,10 +15,10 @@ export default function CreateComment(props) {
           name="body"
         />
 
-        <button type="submit" className="login-form-button">
+      <Button type="primary" htmlType="submit" className="login-form-button">
           create comment
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }

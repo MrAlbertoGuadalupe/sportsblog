@@ -6,7 +6,7 @@ import "./navbar.css";
 export default function NavBar(props) {
   return (
     <header className = "navbar">
-    <a><img src={ require('../media/logo.webp')} className = "logohead"  style={{ height: "150px" }} alt={'home'}
+    <a><img src={ require('../media/logo.webp')} className = "logohead"  style={{ height: "100px" }} alt={'home'}
       onClick={() => props.handleViewChange('default')} /></a>
       <Icon
 
@@ -28,7 +28,7 @@ export default function NavBar(props) {
     <ReactTooltip id='happyFace' type='error'>
 
     <span>You are logged in</span>
-    </ReactTooltip> 
+    </ReactTooltip>
 
       <Icon
         className = "profileicon"
