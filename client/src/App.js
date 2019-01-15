@@ -8,6 +8,8 @@ import CommentList from "./components/articles/commentlist";
 import CommentListTwo from "./components/articles/commentlisttwo";
 import LoginView from "./components/login/loginview";
 import LogoutView from "./components/login/logoutview";
+import Stats from "./components/login/stats";
+import About from "./components/login/about";
 import Articles from "./components/articles/articles";
 import jwt_decode from "jwt-decode";
 import { login } from "./services/auth";
@@ -240,20 +242,18 @@ class App extends Component {
 
   async registerUser(e) {
     e.preventDefault();
-    const data = await axios.post(
-      `api/users`,
-      {
-        user: {
-          email: this.state.newuser.email,
-          password: this.state.newuser.password,
-          password_confirmation: this.state.newuser.password_confirmation
-        }
-      })
+    const data = await axios.post(`api/users`, {
+      user: {
+        email: this.state.newuser.email,
+        password: this.state.newuser.password,
+        password_confirmation: this.state.newuser.password_confirmation
+      }
+    });
     const users = this.getUsers;
-      this.setState({
-        newuser: this.state.newuser
-      });
-}
+    this.setState({
+      newuser: this.state.newuser
+    });
+  }
 
   async logout() {
     console.log("logged out");
@@ -307,7 +307,6 @@ class App extends Component {
     this.setState({ curView: view });
   }
 
-
   render() {
     const view = this.state.curView;
     let butt;
@@ -327,11 +326,22 @@ class App extends Component {
           />
         );
         break;
-      case "Logout":
-        butt = (
-          <LogoutView handleViewChange={this.setView} logout={this.logout} />
-        );
-        break;
+
+        case "About":
+          butt = (
+            <About handleViewChange={this.setView}  />
+          );
+          break;
+        case "Coming Soon":
+          butt = (
+            <Stats handleViewChange={this.setView}  />
+          );
+          break;
+        case "Logout":
+          butt = (
+            <LogoutView handleViewChange={this.setView} logout={this.logout} />
+          );
+          break;
       default:
         butt = (
           <Articles
@@ -376,7 +386,6 @@ class App extends Component {
 }
 
 export default App;
-
 
 // <CreateComment
 //   handleCommentChange={this.handleCommentChange}

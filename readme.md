@@ -19,7 +19,7 @@ Ruby on Rails
 React
 
 ## Navbar
-Home(Articles View), Login/Logout options,
+Home(Articles View), Login/Logout options
 
 ## MVP
 a sports blog where sports articles are posted and users can leave comments on the articles.

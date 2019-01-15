@@ -21,7 +21,7 @@ export default function NavBarTemplate(props) {
 
         <a className = "logohead" ><img src={ require('../media/logo.webp')}  style={{ height: "80px" }} alt={'home'}
           onClick={() => props.handleViewChange('default')} /></a>
-          
+
 
         <Menu.Item>
         <Menu.Item onClick={() => props.handleViewChange('default')}>
@@ -36,16 +36,39 @@ export default function NavBarTemplate(props) {
         Home
         </Menu.Item>
         </Menu.Item>
-        <SubMenu title={<span className="submenu-title-wrapper"><Icon type="bar-chart" />Stats</span>}>
-          <MenuItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
+        <SubMenu title={<span className="submenu-title-wrapper"><Icon type="shopping" />Shopping</span>}>
+          <MenuItemGroup title="Shopping">
+            <Menu.Item key="setting:1">Tickets</Menu.Item>
+            <Menu.Item key="setting:2">Amazon</Menu.Item>
+            <Menu.Item key="setting:2">MLB Shop</Menu.Item>
           </MenuItemGroup>
-          <MenuItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </MenuItemGroup>
+
         </SubMenu>
+        <Menu.Item onClick={() => props.handleViewChange("Coming Soon")}>
+        <Icon
+
+          className = "stats"
+          type="bar-chart"
+          style={{ fontSize: "20px", color: "white" }}
+        />Stats
+        </Menu.Item>
+        <Menu.Item onClick={() => props.handleViewChange("Coming Soon")} >
+        <Icon
+          href="mailto:yankeessportssite@gmail.com"
+          className = "mailicon"
+          type="mail"
+          style={{ fontSize: "20px", color: "white" }}
+        />Contact us
+        </Menu.Item>
+        <Menu.Item onClick={() => props.handleViewChange("About")}   >
+        <Icon
+
+          className = "mailicon"
+          type="book"
+          style={{ fontSize: "20px", color: "white" }}
+        />About Us
+        </Menu.Item>
+
         <Menu.Item onClick={() => props.handleViewChange('Login')}>
          <Icon
           className = "profileicon"
@@ -67,7 +90,6 @@ export default function NavBarTemplate(props) {
           onClick={() => props.logout()}
         />Logout
         </Menu.Item>
-
       </Menu>
 
     )

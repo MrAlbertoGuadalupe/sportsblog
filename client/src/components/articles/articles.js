@@ -17,7 +17,7 @@ export default function Articles(props) {
           <img className= "artpic" alt={index.img_url} src={index.img_url}/>
           <h3 className="body">{index.body}</h3>
           {props.editID === index.id ?
-            <div>
+            <div className = "sidebyside">
 
               <EditArticle
                 article={index}
@@ -55,7 +55,7 @@ export default function Articles(props) {
   value={index.id}
   onClick={props.deletePost}
 >
-  Delete Button
+  Delete Article
 </Button>
 
 <Button type="primary" htmlType="submit" className="login-form-Button"
@@ -65,7 +65,7 @@ onClick={() => {
   props.toggleState(index.id)
 }}
 >
-Edit Button
+Edit Article
 </Button>
 <Button type="primary" htmlType="submit" className="login-form-Button"
 
@@ -95,7 +95,7 @@ Create Comment
         createbody={props.createbody}
         createPost={props.createPost}
         createimgurl={props.createimgurl}
-  
+
       />
     </div>
   ) : (

@@ -38,3 +38,7 @@
 .createarticleform {
   margin: 0 auto;
 }
+.sidebyside{
+  display: flex;
+  flex-direction: row;
+}

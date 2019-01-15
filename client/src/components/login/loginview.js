@@ -6,7 +6,7 @@ import "./login.css";
 
 export default function LoginView(props) {
   return (
-    <div>
+    <div className = "sidebyside">
       <LoginForm
         handleLogin={props.handleLogin}
         handleChange={props.handleChange}
