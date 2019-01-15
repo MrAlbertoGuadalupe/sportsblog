@@ -38,7 +38,17 @@ If a player misses an entire option year due to injury or expends his third opti
 
 Remember when we thought the top free agent would make his decision shortly after the New Year? Well, it’s been a week and a half and he still doesn’t appear close to signing. Jon Heyman offered an update yesterday afternoon that indicated that while the Yankees are “believed to be [Machado’s] preferred destination,” they haven’t made him an official offer. The Phillies and White Sox are still in the mix, along with a possible mystery team. Also of note: Machado is reportedly seeking a contract bigger than Giancarlo Stanton’s, which would be upwards of $325 million.',
      img_url: 'https://cdn.vox-cdn.com/thumbor/vPdDQZN7iyJfubiEADyZk2n40mQ=/0x0:4661x3107/1820x1213/filters:focal(1874x829:2618x1573):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62819638/1054059028.jpg.0.jpg'
+   },
+   {
+     user_id: 1,
+     title: 'Update: Yankees sign DJ LeMahieu to two-year deal, designate Tim Locastro for assignment',
+     body: 'LeMahieu, 30, is a natural second baseman and an excellent one at that. He is a legitimate Gold Glove caliber defender and lordy did the Yanks need to improve their infield defense. This accomplishes that to some degree. LeMahieu has a little experience at first (13 innings) and third (245 innings) bases, so they won’t be completely new to him, which I guess is good.
+
+As with every Rockies player, the question is how much will he hit outside the Coors Field? There is evidence of a Coors Field hangover because coming down from altitude requires an adjustment, so you can’t really take a dude’s road numbers and declare that the real him.
+',
+     img_url: 'http://cdn.riveraveblues.com/wp-content/uploads/2019/01/DJ-LeMahieu-min.jpg'
    }
+
 ])
 
 # comments = Comment.create!([
